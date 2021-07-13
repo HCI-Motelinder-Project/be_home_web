@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans'
         )
       ),
-      home: ManagementView(index: 0,),
+      home: AdminMainView(),
     );
   }
 }
