@@ -44,14 +44,6 @@ class _TopNavBarState extends State<TopNavBar> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ButtonNavbar(title: "Quản lý bài đăng"),
-              SizedBox(
-                width: 50,
-              ),
-              ButtonNavbar(title: "Quản lý tài khoản"),
-              SizedBox(
-                width: 50,
-              ),
               DropdownButton<String>(
                 underline: SizedBox(),
                 value: "Loại phòng",

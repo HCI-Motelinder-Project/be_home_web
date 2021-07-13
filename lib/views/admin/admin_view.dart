@@ -1,10 +1,9 @@
 import 'package:behome/constraint/color_constant.dart';
 import 'package:behome/views/admin/management_view.dart';
-import 'package:behome/widgets/detail/rent_entity_detail_admin.dart';
+import 'package:behome/widgets/admin/rent_entity_detail_admin.dart';
 import 'package:behome/widgets/nav_bar/top_nav_bar_widget.dart';
 import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 
 class AdminMainView extends StatefulWidget {
   const AdminMainView({Key? key}) : super(key: key);
@@ -105,6 +104,10 @@ class _AdminMainViewState extends State<AdminMainView> {
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => ManagementView(index: 1,)));
+                              },
                               child: Container(
                                 width: 250,
                                 constraints: BoxConstraints(
@@ -144,7 +147,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
-                                      AntDesign.home,
+                                      Icons.home_outlined,
                                       size: 40,
                                     ),
                                     SizedBox(height: 10),
@@ -174,7 +177,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
-                                      MaterialIcons.kitchen,
+                                      Icons.kitchen,
                                       size: 40,
                                     ),
                                     SizedBox(height: 10),
@@ -206,8 +209,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
-                                      MaterialCommunityIcons
-                                          .room_service_outline,
+                                      Icons.miscellaneous_services_outlined,
                                       size: 40,
                                     ),
                                     SizedBox(height: 10),
@@ -263,7 +265,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                                         cursor: SystemMouseCursors.click,
                                         child: GestureDetector(
                                           child: DecoratedIcon(
-                                            SimpleLineIcons.arrow_right,
+                                            Icons.arrow_forward_ios_outlined,
                                             size: 60,
                                             color: appMainColor,
                                             shadows: [
