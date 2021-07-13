@@ -1,6 +1,5 @@
 import 'package:behome/constraint/color_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 
 class RentEntityWidgetForAdmin extends StatefulWidget {
   const RentEntityWidgetForAdmin({Key? key}) : super(key: key);
@@ -98,7 +97,7 @@ class _RentEntityWidgetForAdminState extends State<RentEntityWidgetForAdmin> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                      AntDesign.checkcircle,
+                      Icons.check_circle_outline,
                       size: 20,
                       color: Colors.green,
                     ),

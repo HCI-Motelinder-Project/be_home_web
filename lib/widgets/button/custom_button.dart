@@ -50,7 +50,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
               side: BorderSide(
-                color: appMainColor,
+                color: widget.animationColor,
                 width: 2,
               )),
           child: InkWell(
