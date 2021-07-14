@@ -17,10 +17,10 @@ class AnimatedButton extends StatefulWidget {
 
 class _AnimatedButtonState extends State<AnimatedButton>
     with SingleTickerProviderStateMixin {
-  late Color textColor;
-  late Color borderColor;
-  late AnimationController _controller;
-  late Animation _animation;
+   Color textColor;
+   Color borderColor;
+   AnimationController _controller;
+   Animation _animation;
 
   @override
   void initState() {

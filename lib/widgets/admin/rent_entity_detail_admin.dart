@@ -2,7 +2,7 @@ import 'package:behome/constraint/color_constant.dart';
 import 'package:flutter/material.dart';
 
 class RentEntityWidgetForAdmin extends StatefulWidget {
-  const RentEntityWidgetForAdmin({Key? key}) : super(key: key);
+  const RentEntityWidgetForAdmin({Key key}) : super(key: key);
 
   @override
   _RentEntityWidgetForAdminState createState() =>

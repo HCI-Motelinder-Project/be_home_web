@@ -1,5 +1,8 @@
+//@dart=2.9
+
 import 'package:behome/constraint/color_constant.dart';
 import 'package:behome/constraint/text_style_constant.dart';
+import 'package:behome/presenters/rent_item_presenter.dart';
 import 'package:behome/widgets/button/custom_button.dart';
 import 'package:behome/widgets/detail/horizontal_detail_widget.dart';
 import 'package:behome/widgets/nav_bar/nav_bar_widget.dart';
@@ -9,13 +12,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({Key key}) : super(key: key);
+
 
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
+  List<Widget> _listRentWidget = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getRentId();
+  }
+
+  void getRentId() {
+    fetchRentItems().then((value) {
+      List<Widget> listWidgets = value
+          .map((item) =>
+          DetailHorizontal(
+            item)).toList();
+      print(listWidgets);
+      setState(() {
+        _listRentWidget = listWidgets;
+      });
+    }).onError((error, stackTrace){
+      print(stackTrace);
+      print(error);
+    });
+  }
+
+
+  Widget _buildCenterIndicator() {
+    return Container(
+      height: 200,
+      alignment: Alignment.center,
+      child: CircularProgressIndicator(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +74,10 @@ class _HomeViewState extends State<HomeView> {
             ),
             Center(
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.75,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.75,
                 child: Column(
                   children: [
                     Column(
@@ -45,7 +85,10 @@ class _HomeViewState extends State<HomeView> {
                         Container(
                           margin: EdgeInsets.only(top: 20),
                           padding: EdgeInsets.all(20),
-                          height: MediaQuery.of(context).size.height * .35,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * .35,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.all(
@@ -82,14 +125,17 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.only(top:20),
+                      margin: EdgeInsets.only(top: 20),
                       child: new Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
                           color: Colors.white,
                         ),
                         height: 200.0,
-                        width: MediaQuery.of(context).size.width,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
                         padding: new EdgeInsets.all(20),
                         child: ListView(
                           scrollDirection: Axis.horizontal,
@@ -163,8 +209,12 @@ class _HomeViewState extends State<HomeView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          constraints: BoxConstraints(maxHeight: double.infinity),
-                          width: MediaQuery.of(context).size.width * 0.5,
+                          constraints: BoxConstraints(maxHeight: double
+                              .infinity),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.5,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.white,
@@ -175,12 +225,12 @@ class _HomeViewState extends State<HomeView> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: EdgeInsets.fromLTRB(20,20,20,0),
+                                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                                 child: Row(
                                   crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                  CrossAxisAlignment.center,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Phòng trọ mới nhất",
@@ -190,7 +240,12 @@ class _HomeViewState extends State<HomeView> {
                                   ],
                                 ),
                               ),
-                              DetailHorizontal(),
+                              Container(
+                                  height: 200.0,
+                                  child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: _listRentWidget,
+                                  ))
                             ],
                           ),
                         ),

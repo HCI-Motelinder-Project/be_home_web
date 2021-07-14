@@ -1,9 +1,11 @@
 import 'package:behome/constraint/text_style_constant.dart';
+import 'package:behome/models/rent_item_model.dart';
 import 'package:behome/views/home/rent_entity_detail_view.dart';
 import 'package:flutter/material.dart';
 
 class DetailHorizontal extends StatefulWidget {
-  const DetailHorizontal({Key? key}) : super(key: key);
+   RentItemModel rentItemModel;
+   DetailHorizontal( this.rentItemModel);
 
   @override
   _DetailHorizontalState createState() => _DetailHorizontalState();
@@ -31,7 +33,7 @@ class _DetailHorizontalState extends State<DetailHorizontal> {
                     ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(25)),
                       child: Image.asset(
-                        "images/background.jpg",
+                        widget.rentItemModel.imageCover,
                         width: 200,
                       ),
                     ),
@@ -43,7 +45,7 @@ class _DetailHorizontalState extends State<DetailHorizontal> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          "Phòng trọ Minh Long",
+                          widget.rentItemModel.name,
                           style: horizontalTitleStyle,
                         ),
                         SizedBox(height: 5,),
@@ -53,7 +55,7 @@ class _DetailHorizontalState extends State<DetailHorizontal> {
                             Icon(Icons.house_outlined),
                             SizedBox(width: 5),
                             Text(
-                              'Phòng cho thuê',
+                              widget.rentItemModel.type,
                               style: horizontalDetailStyle,
                             ),
                           ],
@@ -73,7 +75,7 @@ class _DetailHorizontalState extends State<DetailHorizontal> {
                             Icon(Icons.location_on_outlined),
                             SizedBox(width: 5),
                             Text(
-                              '1 Nguyễn Du, Phường 5, Quận 1',
+                              widget.rentItemModel.address + " " + widget.rentItemModel.district,
                               style: horizontalDetailStyle,
                             ),
                           ],
@@ -86,11 +88,11 @@ class _DetailHorizontalState extends State<DetailHorizontal> {
               Column(
                 children: [
                   Text(
-                    "3.5",
+                    widget.rentItemModel.price.toString(),
                     style: horizontalPriceStyle,
                   ),
                   Text(
-                    "tr/phòng",
+                    "VND/phòng",
                     style: horizontalPriceUnitStyle,
                   ),
                 ],

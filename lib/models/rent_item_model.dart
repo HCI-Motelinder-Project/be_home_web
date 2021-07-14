@@ -1,9 +1,12 @@
-import 'package:be_home/constants/common_constant.dart';
-import 'package:be_home/utils/app_utils.dart';
+//@dart=2.9
+
+import 'package:behome/constraint/common_constant.dart';
+import 'package:behome/utils/app_utils.dart';
 
 class RentItemModel {
   String id;
   int area;
+  String name;
   String district;
   String address;
   String distance;
@@ -15,9 +18,11 @@ class RentItemModel {
   double rating;
   int totalRating;
   String houseId;
+  String ownerName;
 
   RentItemModel({
     this.address,
+    this.name,
     this.area,
     this.district,
     this.distance,
@@ -29,12 +34,14 @@ class RentItemModel {
     this.rating,
     this.totalRating,
     this.houseId,
+    this.ownerName,
   });
 
   // This is a static method
   factory RentItemModel.fromJson(Map<String, dynamic> json) {
     return RentItemModel(
       address: json["address"],
+      name: json["name"],
       area: json["area"],
       district: json["district"],
       distance: json["distance"],
@@ -51,15 +58,18 @@ class RentItemModel {
     return RentItemModel(
       address: json["house"]["address"],
       area: json["area"],
+      name: json["name"],
       district: json["house"]["districtName"],
-      distance: json["distance"],
+      distance:
+          json["distance"] != null ? json["rentEntities"]["distance"] : "~500m",
       gender: ModelUtils.convertGenderFromResponse(json["gender"]),
       price: DataUtils.convertPriceFromResponse(json["price"]),
-      imageCover: json["imageCover"] ?? DEFAULT_IMAGE,
+      imageCover: json["image"] ?? DEFAULT_IMAGE,
       type: json["rentType"]["name"],
-      rating: json["rating"],
-      totalRating: json["totalRating"],
+      rating: 4.0,
+      totalRating: 50,
       houseId: json["houseId"],
+      ownerName: json["house"]["ownerName"]
     );
   }
 

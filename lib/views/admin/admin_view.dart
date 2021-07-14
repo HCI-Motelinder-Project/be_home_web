@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AdminMainView extends StatefulWidget {
-  const AdminMainView({Key? key}) : super(key: key);
+  const AdminMainView({Key key}) : super(key: key);
 
   @override
   _AdminMainViewState createState() => _AdminMainViewState();

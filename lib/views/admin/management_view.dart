@@ -11,14 +11,14 @@ import 'package:flutter/material.dart';
 class ManagementView extends StatefulWidget {
   final int index;
 
-  const ManagementView({Key? key, required this.index}) : super(key: key);
+  const ManagementView({Key key, this.index}) : super(key: key);
 
   @override
   _ManagementViewState createState() => _ManagementViewState();
 }
 
 class _ManagementViewState extends State<ManagementView> {
-  late int lastIndex;
+  int lastIndex;
   PageController _pageController = PageController();
   int count = 0;
   List<String> title = [

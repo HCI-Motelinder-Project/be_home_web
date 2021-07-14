@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'nav_bar_widget.dart';
 
 class TopNavBar extends StatefulWidget {
-  const TopNavBar({Key? key}) : super(key: key);
+  const TopNavBar({Key key}) : super(key: key);
 
   @override
   _TopNavBarState createState() => _TopNavBarState();
@@ -50,7 +50,7 @@ class _TopNavBarState extends State<TopNavBar> {
                 icon: const Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 style: navbarText,
-                onChanged: (String? newValue) {},
+                onChanged: (String newValue) {},
                 items: <String>[
                   'Loại phòng',
                   'Phòng trọ',
