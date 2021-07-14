@@ -109,7 +109,7 @@ class _PostManagementViewState extends State<PostManagementView> {
     );
   }
 
-  Widget PostPendingWidget() {
+  Widget PendingPostWidget() {
     return Container(
       constraints: BoxConstraints(
         maxWidth: double.infinity,
@@ -121,9 +121,9 @@ class _PostManagementViewState extends State<PostManagementView> {
         border: Border.all(width: 1, color: appMainColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 15,
+            color: appMainColor.withOpacity(0.5),
+            spreadRadius: .5,
+            blurRadius: 5,
             offset: Offset(0, 3), // changes position of shadow
           ),
         ],
@@ -171,9 +171,18 @@ class _PostManagementViewState extends State<PostManagementView> {
               ),
               Padding(
                 padding: const EdgeInsets.all(2.0),
-                child: Text(
-                  "Giới tính: Nam",
-                  style: TextStyle(fontSize: 16),
+                child: Row(
+                  children: [
+                    Text(
+                      "Giới tính: Nam",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(width: 125,),
+                    Text(
+                      "Số lượng: 2 người",
+                      style: TextStyle(fontSize: 16),
+                    )
+                  ],
                 ),
               ),
               Padding(
@@ -356,7 +365,7 @@ class _PostManagementViewState extends State<PostManagementView> {
     );
   }
 
-  Widget PostApprovedWidget() {
+  Widget ApprovedPostWidget() {
     return Container(
       constraints: BoxConstraints(
         maxWidth: double.infinity,
@@ -368,10 +377,10 @@ class _PostManagementViewState extends State<PostManagementView> {
         border: Border.all(width: 1, color: appMainColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 15,
-            offset: Offset(0, 3), // changes position of shadow
+            color: appMainColor.withOpacity(0.5),
+            spreadRadius: .5,
+            blurRadius: 5,
+            offset: Offset(0, 3),
           ),
         ],
       ),
@@ -418,9 +427,18 @@ class _PostManagementViewState extends State<PostManagementView> {
               ),
               Padding(
                 padding: const EdgeInsets.all(2.0),
-                child: Text(
-                  "Giới tính: Nam",
-                  style: TextStyle(fontSize: 16),
+                child: Row(
+                  children: [
+                    Text(
+                      "Giới tính: Nam",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(width: 125,),
+                    Text(
+                      "Số lượng: 2 người",
+                      style: TextStyle(fontSize: 16),
+                    )
+                  ],
                 ),
               ),
               Padding(
@@ -595,7 +613,7 @@ class _PostManagementViewState extends State<PostManagementView> {
     );
   }
 
-  Widget PostCanceledWidget() {
+  Widget CanceledPostWidget() {
     return Container(
       constraints: BoxConstraints(
         maxWidth: double.infinity,
@@ -607,9 +625,9 @@ class _PostManagementViewState extends State<PostManagementView> {
         border: Border.all(width: 1, color: appMainColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 15,
+            color: appMainColor.withOpacity(0.5),
+            spreadRadius: .5,
+            blurRadius: 5,
             offset: Offset(0, 3), // changes position of shadow
           ),
         ],
@@ -657,9 +675,18 @@ class _PostManagementViewState extends State<PostManagementView> {
               ),
               Padding(
                 padding: const EdgeInsets.all(2.0),
-                child: Text(
-                  "Giới tính: Nam",
-                  style: TextStyle(fontSize: 16),
+                child: Row(
+                  children: [
+                    Text(
+                      "Giới tính: Nam",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(width: 125,),
+                    Text(
+                      "Số lượng: 2 người",
+                      style: TextStyle(fontSize: 16),
+                    )
+                  ],
                 ),
               ),
               Padding(
@@ -835,7 +862,7 @@ class _PostManagementViewState extends State<PostManagementView> {
 
   Widget ListPendingWidget() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       constraints: BoxConstraints(
         maxHeight: double.infinity,
       ),
@@ -843,7 +870,7 @@ class _PostManagementViewState extends State<PostManagementView> {
       height: 850,
       child: ListView(
         children: [
-          PostPendingWidget(),
+          PendingPostWidget(),
         ],
       ),
     );
@@ -851,7 +878,7 @@ class _PostManagementViewState extends State<PostManagementView> {
 
   Widget ListApprovedWidget() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       constraints: BoxConstraints(
         maxHeight: double.infinity,
       ),
@@ -859,7 +886,7 @@ class _PostManagementViewState extends State<PostManagementView> {
       height: 850,
       child: ListView(
         children: [
-          PostApprovedWidget(),
+          ApprovedPostWidget(),
         ],
       ),
     );
@@ -867,7 +894,7 @@ class _PostManagementViewState extends State<PostManagementView> {
 
   Widget ListCanceledWidget() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       constraints: BoxConstraints(
         maxHeight: double.infinity,
       ),
@@ -875,7 +902,7 @@ class _PostManagementViewState extends State<PostManagementView> {
       height: 850,
       child: ListView(
         children: [
-          PostCanceledWidget(),
+          CanceledPostWidget(),
         ],
       ),
     );

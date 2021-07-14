@@ -1,0 +1,2 @@
+const String DEFAULT_IMAGE = 'https://res.cloudinary.com/thinhtpt/image/upload/v1623681704/hci-behome/image-not-found_muojzr.png';
+const String DEFAULT_USER_IMAGE = 'https://res.cloudinary.com/thinhtpt/image/upload/v1623178910/hci-behome/defaullt-user_rlgz0f.png';

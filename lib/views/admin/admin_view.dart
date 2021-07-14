@@ -3,6 +3,7 @@ import 'package:behome/views/admin/management_view.dart';
 import 'package:behome/widgets/admin/rent_entity_detail_admin.dart';
 import 'package:behome/widgets/nav_bar/top_nav_bar_widget.dart';
 import 'package:decorated_icon/decorated_icon.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AdminMainView extends StatefulWidget {
@@ -77,7 +78,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                               child: Container(
                                 constraints: BoxConstraints(
                                     maxWidth: 200, maxHeight: 150),
-                                width: 250,
+                                width: 280,
                                 padding: EdgeInsets.symmetric(vertical: 20),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -109,7 +110,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                                     MaterialPageRoute(builder: (context) => ManagementView(index: 1,)));
                               },
                               child: Container(
-                                width: 250,
+                                width: 280,
                                 constraints: BoxConstraints(
                                     maxWidth: 200, maxHeight: 150),
                                 padding: EdgeInsets.symmetric(vertical: 20),
@@ -138,10 +139,13 @@ class _AdminMainViewState extends State<AdminMainView> {
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => ManagementView(index: 2,)));
+                              },
                               child: Container(
-                                width: 250,
-                                constraints: BoxConstraints(
-                                    maxWidth: 200, maxHeight: 150),
+                                width: 280,
+                                constraints: BoxConstraints( maxHeight: 150),
                                 padding: EdgeInsets.symmetric(vertical: 20),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -151,9 +155,19 @@ class _AdminMainViewState extends State<AdminMainView> {
                                       size: 40,
                                     ),
                                     SizedBox(height: 10),
-                                    Text(
-                                      "Quản lý nhà trọ",
-                                      style: TextStyle(fontSize: 18),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Quản lý",
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                        SizedBox(height: 2),
+                                        Text(
+                                          "nhà trọ & nhà nguyên căn",
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -168,8 +182,12 @@ class _AdminMainViewState extends State<AdminMainView> {
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => ManagementView(index: 3,)));
+                              },
                               child: Container(
-                                width: 250,
+                                width: 280,
                                 constraints: BoxConstraints(
                                     maxWidth: 200, maxHeight: 150),
                                 padding: EdgeInsets.symmetric(vertical: 20),
@@ -181,41 +199,19 @@ class _AdminMainViewState extends State<AdminMainView> {
                                       size: 40,
                                     ),
                                     SizedBox(height: 10),
-                                    Text(
-                                      "Quản lý cơ sở vật chất",
-                                      style: TextStyle(fontSize: 18),
-                                      softWrap: false,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 1,
-                            height: 150,
-                            color: appMainColor,
-                          ),
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              child: Container(
-                                width: 250,
-                                constraints: BoxConstraints(
-                                    maxWidth: 200, maxHeight: 150),
-                                padding: EdgeInsets.symmetric(vertical: 20),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.miscellaneous_services_outlined,
-                                      size: 40,
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      "Quản lý dịch vụ",
-                                      style: TextStyle(fontSize: 18),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Quản lý",
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                        SizedBox(height: 5,),
+                                        Text(
+                                          "cơ sở vật chất & dịch vụ",
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),

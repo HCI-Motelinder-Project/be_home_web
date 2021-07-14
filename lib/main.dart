@@ -1,3 +1,4 @@
+//@dart=2.9
 import 'package:behome/views/admin/management_view.dart';
 import 'package:behome/views/admin/admin_view.dart';
 import 'package:behome/views/home/home_view2.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans'
         )
       ),
-      home: AdminMainView(),
+      home: ManagementView(index: 3,),
     );
   }
 }
