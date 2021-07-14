@@ -1,6 +1,8 @@
 import 'package:behome/constraint/color_constant.dart';
 import 'package:behome/views/home/home_view.dart';
 import 'package:behome/widgets/admin/account_management_widget.dart';
+import 'package:behome/widgets/admin/facility_service_management_widget.dart';
+import 'package:behome/widgets/admin/house_manage_widget.dart';
 import 'package:behome/widgets/admin/post_management_widget.dart';
 import 'package:behome/widgets/nav_bar/top_nav_bar_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,8 +24,8 @@ class _ManagementViewState extends State<ManagementView> {
   List<String> title = [
     "Quản lý tài khoản",
     "Quản lý bài đăng",
-    "Quản lý cơ sở vật chất",
-    "Quản lý dịch vụ"
+    "Quản lý-nhà trọ & nhà nguyên căn",
+    "Quản lý-cơ sở vật chất & dịch vụ",
   ];
 
   @override
@@ -103,11 +105,13 @@ class _ManagementViewState extends State<ManagementView> {
                                   onTap: () {
                                     setState(() {
                                       lastIndex = index;
-                                      _pageController.jumpToPage(index);
+                                      _pageController.animateToPage(index,
+                                          duration: Duration(microseconds: 50),
+                                          curve: Curves.ease);
                                     });
                                   },
                                   child: AnimatedContainer(
-                                    height: 60,
+                                    height: 65,
                                     decoration: BoxDecoration(
                                       color: lastIndex == index
                                           ? appMainColor
@@ -120,16 +124,16 @@ class _ManagementViewState extends State<ManagementView> {
                                       ),
                                     ),
                                     duration: Duration(microseconds: 500),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        MouseRegion(
-                                          cursor: SystemMouseCursors.click,
-                                          child: Tab(
-                                            child: Text(
-                                              title[index],
+                                    child: MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: Tab(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Text(
+                                              title[index].split("-")[0],
                                               style: TextStyle(
                                                 fontSize: 18,
                                                 color: lastIndex == index
@@ -137,9 +141,26 @@ class _ManagementViewState extends State<ManagementView> {
                                                     : appMainColor,
                                               ),
                                             ),
-                                          ),
+                                            title[index].split("-").length > 1
+                                                ? Container(
+                                                    margin:
+                                                        EdgeInsets.only(top: 2),
+                                                    child: Text(
+                                                      title[index]
+                                                          .split("-")[1],
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        color:
+                                                            lastIndex == index
+                                                                ? Colors.white
+                                                                : appMainColor,
+                                                      ),
+                                                    ),
+                                                  )
+                                                : SizedBox.shrink(),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 );
@@ -161,8 +182,10 @@ class _ManagementViewState extends State<ManagementView> {
                       child: PageView(
                         controller: _pageController,
                         children: [
-                          if (lastIndex == 0 ) AccountManagement(),
-                          if(lastIndex == 1 ) PostManagementView(),
+                          if (lastIndex == 0) AccountManagement(),
+                          if (lastIndex == 1) PostManagementView(),
+                          if (lastIndex == 2) HouseManagementView(),
+                          if (lastIndex == 3) FacilityServiceManagementView(),
                         ],
                       ),
                     ),
