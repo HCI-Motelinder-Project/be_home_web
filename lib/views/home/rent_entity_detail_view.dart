@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RentEntityDetail extends StatefulWidget {
-  const RentEntityDetail({Key? key}) : super(key: key);
+  const RentEntityDetail({Key key}) : super(key: key);
 
   @override
   _RentEntityDetailState createState() => _RentEntityDetailState();

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class TitleNavbar extends StatelessWidget {
   final String title;
 
-  TitleNavbar({required this.title});
+  TitleNavbar({ this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class TitleNavbar extends StatelessWidget {
 class AnimatedButtonNavbar extends StatelessWidget {
   final String title;
 
-  AnimatedButtonNavbar({required this.title});
+  AnimatedButtonNavbar({ this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class AnimatedButtonNavbar extends StatelessWidget {
 class ButtonNavbar extends StatelessWidget {
   final String title;
 
-  ButtonNavbar({required this.title});
+  ButtonNavbar({ this.title});
 
   @override
   Widget build(BuildContext context) {

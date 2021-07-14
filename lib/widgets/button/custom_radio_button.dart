@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class RentTypeRadioButton extends StatelessWidget {
   const RentTypeRadioButton({
-    Key? key,
-    required this.label,
-    required this.padding,
-    required this.groupValue,
-    required this.value,
-    required this.onChanged,
+    Key key,
+     this.label,
+     this.padding,
+     this.groupValue,
+     this.value,
+     this.onChanged,
   }) : super(key: key);
 
   final String label;
@@ -32,7 +32,7 @@ class RentTypeRadioButton extends StatelessWidget {
             Radio<RentType>(
               groupValue: groupValue,
               value: value,
-              onChanged: (RentType? newValue) {
+              onChanged: (RentType newValue) {
                 onChanged(newValue);
               },
             ),
@@ -46,12 +46,12 @@ class RentTypeRadioButton extends StatelessWidget {
 
 class PriceSortingRadioButton extends StatelessWidget {
   const PriceSortingRadioButton({
-    Key? key,
-    required this.label,
-    required this.padding,
-    required this.groupValue,
-    required this.value,
-    required this.onChanged,
+    Key key,
+     this.label,
+     this.padding,
+     this.groupValue,
+     this.value,
+     this.onChanged,
   }) : super(key: key);
 
   final String label;
@@ -75,7 +75,7 @@ class PriceSortingRadioButton extends StatelessWidget {
             Radio<Price>(
               groupValue: groupValue,
               value: value,
-              onChanged: (Price? newValue) {
+              onChanged: (Price newValue) {
                 onChanged(newValue);
               },
             ),
@@ -89,12 +89,12 @@ class PriceSortingRadioButton extends StatelessWidget {
 
 class GenderRadioButton extends StatelessWidget {
   const GenderRadioButton({
-    Key? key,
-    required this.label,
-    required this.padding,
-    required this.groupValue,
-    required this.value,
-    required this.onChanged,
+    Key key,
+     this.label,
+     this.padding,
+     this.groupValue,
+     this.value,
+     this.onChanged,
   }) : super(key: key);
 
   final String label;
@@ -118,7 +118,7 @@ class GenderRadioButton extends StatelessWidget {
             Radio<Gender>(
               groupValue: groupValue,
               value: value,
-              onChanged: (Gender? newValue) {
+              onChanged: (Gender newValue) {
                 onChanged(newValue);
               },
             ),

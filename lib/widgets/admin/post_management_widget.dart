@@ -3,14 +3,14 @@ import 'package:behome/widgets/button/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class PostManagementView extends StatefulWidget {
-  const PostManagementView({Key? key}) : super(key: key);
+  const PostManagementView({Key key}) : super(key: key);
 
   @override
   _PostManagementViewState createState() => _PostManagementViewState();
 }
 
 class _PostManagementViewState extends State<PostManagementView> {
-  late int lastIndex;
+   int lastIndex;
   PageController _pageController = PageController();
   List<String> title = ["Đang chờ phê duyệt", "Đã phê duyệt", "Đã hủy bỏ"];
 

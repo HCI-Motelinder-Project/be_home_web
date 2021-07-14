@@ -4,7 +4,7 @@ import 'package:behome/widgets/nav_bar/top_nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class ResultView extends StatefulWidget {
-  const ResultView({Key? key}) : super(key: key);
+  const ResultView({Key key}) : super(key: key);
 
   @override
   _ResultViewState createState() => _ResultViewState();

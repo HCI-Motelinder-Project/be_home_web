@@ -2,7 +2,7 @@ import 'package:behome/constraint/color_constant.dart';
 import 'package:flutter/material.dart';
 
 class AccountManagement extends StatefulWidget {
-  const AccountManagement({Key? key}) : super(key: key);
+  const AccountManagement({Key key}) : super(key: key);
 
   @override
   _AccountManagementState createState() => _AccountManagementState();
@@ -124,7 +124,7 @@ class _AccountManagementState extends State<AccountManagement> {
             underline: SizedBox(),
             value: role,
             icon: const Icon(Icons.arrow_drop_down),
-            onChanged: (String? newValue) {},
+            onChanged: (String newValue) {},
             items: listRole.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                   value: value,

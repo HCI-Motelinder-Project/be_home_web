@@ -3,14 +3,14 @@ import 'package:behome/widgets/button/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class HouseManagementView extends StatefulWidget {
-  const HouseManagementView({Key? key}) : super(key: key);
+  const HouseManagementView({Key key}) : super(key: key);
 
   @override
   _HouseManagementViewState createState() => _HouseManagementViewState();
 }
 
 class _HouseManagementViewState extends State<HouseManagementView> {
-  late int lastIndex;
+   int lastIndex;
   PageController _pageController = PageController();
   List<String> title = ["Chưa xác thực", "Đã xác thực"];
 

@@ -4,7 +4,7 @@ class CustomTabBar extends StatelessWidget {
   final TabController controller;
   final List<Widget> tabs;
 
-  CustomTabBar({required this.controller, required this.tabs});
+  CustomTabBar({ this.controller,  this.tabs});
 
   @override
   Widget build(BuildContext context) {

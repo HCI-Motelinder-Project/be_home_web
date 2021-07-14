@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class ManuallyCarouselSlider extends StatefulWidget {
-  const ManuallyCarouselSlider({Key? key}) : super(key: key);
+  const ManuallyCarouselSlider({Key key}) : super(key: key);
 
   @override
   _ManuallyCarouselSliderState createState() => _ManuallyCarouselSliderState();
