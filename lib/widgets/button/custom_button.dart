@@ -17,10 +17,10 @@ class AnimatedButton extends StatefulWidget {
 
 class _AnimatedButtonState extends State<AnimatedButton>
     with SingleTickerProviderStateMixin {
-   Color textColor;
-   Color borderColor;
-   AnimationController _controller;
-   Animation _animation;
+  Color textColor;
+  Color borderColor;
+  AnimationController _controller;
+  Animation _animation;
 
   @override
   void initState() {
@@ -116,17 +116,11 @@ class NormalButton extends StatefulWidget {
 class _NormalButtonState extends State<NormalButton> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => HomeView()));
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(widget.title, style: navbarText),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(widget.title, style: navbarText),
+      ],
     );
   }
 }
@@ -169,7 +163,9 @@ class _CustomIconButtonState extends State<CustomIconButton> {
                     letterSpacing: 0.5,
                     color: Colors.white),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
             ],
           ),
         ),

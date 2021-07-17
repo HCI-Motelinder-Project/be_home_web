@@ -2,22 +2,29 @@ import 'package:behome/constraint/color_constant.dart';
 import 'package:behome/widgets/button/custom_button.dart';
 import 'package:flutter/material.dart';
 
-class PostManagementView extends StatefulWidget {
-  const PostManagementView({Key key}) : super(key: key);
+class RentEntityManagementView extends StatefulWidget {
+  final int index;
+
+  const RentEntityManagementView({Key key, this.index}) : super(key: key);
 
   @override
-  _PostManagementViewState createState() => _PostManagementViewState();
+  _RentEntityManagementViewState createState() =>
+      _RentEntityManagementViewState();
 }
 
-class _PostManagementViewState extends State<PostManagementView> {
-   int lastIndex;
+class _RentEntityManagementViewState extends State<RentEntityManagementView> {
+  int lastIndex;
   PageController _pageController = PageController();
-  List<String> title = ["Đang chờ phê duyệt", "Đã phê duyệt", "Đã hủy bỏ"];
+  List<String> title = [
+    "Đang chờ xác thực",
+    "Đã xác thực",
+    "Xác thực không thành công"
+  ];
 
   @override
   void initState() {
     super.initState();
-    lastIndex = 0;
+    widget.index != 0 ? lastIndex = widget.index : lastIndex = 0;
   }
 
   @override
@@ -31,7 +38,7 @@ class _PostManagementViewState extends State<PostManagementView> {
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border(
-                bottom: BorderSide(width: .5, color: appMainColor),
+                bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
               ),
             ),
             child: Container(
@@ -51,16 +58,18 @@ class _PostManagementViewState extends State<PostManagementView> {
                     onTap: () {
                       setState(() {
                         lastIndex = index;
-                        _pageController.jumpToPage(index);
+                        _pageController.animateToPage(index,
+                            duration: Duration(microseconds: 50),
+                            curve: Curves.ease);
                       });
                     },
                     child: AnimatedContainer(
                       height: 60,
                       decoration: BoxDecoration(
-                        color: lastIndex == index ? appMainColor : Colors.white,
+                        color: lastIndex == index ? APP_PRIMARY_COLOR : Colors.white,
                         border: Border(
-                          bottom: BorderSide(width: .5, color: appMainColor),
-                          top: BorderSide(width: .5, color: appMainColor),
+                          bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+                          top: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                         ),
                       ),
                       duration: Duration(microseconds: 500),
@@ -75,7 +84,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                                 fontSize: 18,
                                 color: lastIndex == index
                                     ? Colors.white
-                                    : appMainColor,
+                                    : APP_PRIMARY_COLOR,
                               ),
                             ),
                           ),
@@ -92,15 +101,15 @@ class _PostManagementViewState extends State<PostManagementView> {
             decoration: BoxDecoration(
                 color: Colors.green,
                 border: Border(
-                  left: BorderSide(color: appMainColor, width: .5),
-                  right: BorderSide(color: appMainColor, width: .5),
+                  left: BorderSide(color: APP_PRIMARY_COLOR, width: .5),
+                  right: BorderSide(color: APP_PRIMARY_COLOR, width: .5),
                 )),
             child: PageView(
               controller: _pageController,
               children: [
-                ListPendingWidget(),
-                ListApprovedWidget(),
-                ListCanceledWidget()
+                if (lastIndex == 0) ListPendingWidget(),
+                if (lastIndex == 1) ListApprovedWidget(),
+                if (lastIndex == 2) ListCanceledWidget()
               ],
             ),
           ),
@@ -118,10 +127,10 @@ class _PostManagementViewState extends State<PostManagementView> {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(width: 1, color: appMainColor),
+        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
         boxShadow: [
           BoxShadow(
-            color: appMainColor.withOpacity(0.5),
+            color: APP_PRIMARY_COLOR.withOpacity(0.5),
             spreadRadius: .5,
             blurRadius: 5,
             offset: Offset(0, 3), // changes position of shadow
@@ -160,7 +169,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       children: [
                         Text("Trạng thái: "),
                         Text(
-                          "Đang chờ phê duyệt",
+                          "Đang chờ xác thực",
                           style: TextStyle(color: Colors.amber, fontSize: 16),
                         ),
                         SizedBox(width: 10),
@@ -177,7 +186,9 @@ class _PostManagementViewState extends State<PostManagementView> {
                       "Giới tính: Nam",
                       style: TextStyle(fontSize: 16),
                     ),
-                    SizedBox(width: 125,),
+                    SizedBox(
+                      width: 125,
+                    ),
                     Text(
                       "Số lượng: 2 người",
                       style: TextStyle(fontSize: 16),
@@ -198,7 +209,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       margin: EdgeInsets.only(left: 5, right: 5),
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -216,7 +227,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -234,7 +245,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -252,7 +263,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -281,7 +292,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       margin: EdgeInsets.only(left: 5, right: 5),
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -295,7 +306,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -309,7 +320,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -323,7 +334,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -348,11 +359,11 @@ class _PostManagementViewState extends State<PostManagementView> {
                     ),
                     Row(
                       children: [
-                        AnimatedButton(40, 200, "Không chấp nhận", Colors.red),
+                        AnimatedButton(40, 200, "Không xác thực", Colors.red),
                         SizedBox(
                           width: 10,
                         ),
-                        AnimatedButton(40, 150, "Duyệt", appMainColor),
+                        AnimatedButton(40, 150, "Xác thực", APP_PRIMARY_COLOR),
                       ],
                     ),
                   ],
@@ -374,10 +385,10 @@ class _PostManagementViewState extends State<PostManagementView> {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(width: 1, color: appMainColor),
+        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
         boxShadow: [
           BoxShadow(
-            color: appMainColor.withOpacity(0.5),
+            color: APP_PRIMARY_COLOR.withOpacity(0.5),
             spreadRadius: .5,
             blurRadius: 5,
             offset: Offset(0, 3),
@@ -416,7 +427,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       children: [
                         Text("Trạng thái: "),
                         Text(
-                          "Đã phê duyệt",
+                          "Đã xác thực",
                           style: TextStyle(color: Colors.green, fontSize: 16),
                         ),
                         SizedBox(width: 10),
@@ -433,7 +444,9 @@ class _PostManagementViewState extends State<PostManagementView> {
                       "Giới tính: Nam",
                       style: TextStyle(fontSize: 16),
                     ),
-                    SizedBox(width: 125,),
+                    SizedBox(
+                      width: 125,
+                    ),
                     Text(
                       "Số lượng: 2 người",
                       style: TextStyle(fontSize: 16),
@@ -454,7 +467,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       margin: EdgeInsets.only(left: 5, right: 5),
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -472,7 +485,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -490,7 +503,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -508,7 +521,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -537,7 +550,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       margin: EdgeInsets.only(left: 5, right: 5),
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -551,7 +564,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -565,7 +578,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -579,7 +592,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -602,7 +615,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       "Địa chỉ: 302 Nguyễn Đình Chiểu",
                       style: TextStyle(fontSize: 20),
                     ),
-                    AnimatedButton(40, 200, "Xóa bài", Colors.red),
+                    AnimatedButton(40, 200, "Hủy xác thực", Colors.red),
                   ],
                 ),
               )
@@ -622,10 +635,10 @@ class _PostManagementViewState extends State<PostManagementView> {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(width: 1, color: appMainColor),
+        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
         boxShadow: [
           BoxShadow(
-            color: appMainColor.withOpacity(0.5),
+            color: APP_PRIMARY_COLOR.withOpacity(0.5),
             spreadRadius: .5,
             blurRadius: 5,
             offset: Offset(0, 3), // changes position of shadow
@@ -664,7 +677,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       children: [
                         Text("Trạng thái: "),
                         Text(
-                          "Đã hủy bỏ",
+                          "Đã hủy xác thực",
                           style: TextStyle(color: Colors.red, fontSize: 16),
                         ),
                         SizedBox(width: 10),
@@ -681,7 +694,9 @@ class _PostManagementViewState extends State<PostManagementView> {
                       "Giới tính: Nam",
                       style: TextStyle(fontSize: 16),
                     ),
-                    SizedBox(width: 125,),
+                    SizedBox(
+                      width: 125,
+                    ),
                     Text(
                       "Số lượng: 2 người",
                       style: TextStyle(fontSize: 16),
@@ -702,7 +717,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       margin: EdgeInsets.only(left: 5, right: 5),
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -720,7 +735,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -738,7 +753,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -756,7 +771,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -785,7 +800,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       margin: EdgeInsets.only(left: 5, right: 5),
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -799,7 +814,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -813,7 +828,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -827,7 +842,7 @@ class _PostManagementViewState extends State<PostManagementView> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: appMainColor),
+                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,

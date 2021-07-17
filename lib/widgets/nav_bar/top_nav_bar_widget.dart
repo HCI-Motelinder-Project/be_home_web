@@ -1,9 +1,12 @@
 import 'package:behome/constraint/color_constant.dart';
 import 'package:behome/constraint/text_style_constant.dart';
+import 'package:behome/views/admin/admin_view.dart';
 import 'package:behome/views/home/home_view2.dart';
 import 'package:behome/views/home/result_view.dart';
+import 'package:behome/widgets/button/custom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'nav_bar_widget.dart';
 
@@ -77,7 +80,16 @@ class _TopNavBarState extends State<TopNavBar> {
             children: [
               Row(
                 children: [
-                  ButtonNavbar(title: "Đăng nhập"),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: (){
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => AdminMainView()));
+                      },
+                      child: NormalButton("Đăng nhập"),
+                    ),
+                  ),
                   SizedBox(
                     width: 20,
                   ),

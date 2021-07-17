@@ -1,7 +1,6 @@
 //@dart=2.9
 import 'dart:developer' as dev;
 
-
 import 'package:behome/config/config.dart';
 import 'package:behome/models/rent_item_model.dart';
 import 'package:behome/utils/app_utils.dart';
@@ -23,9 +22,7 @@ Future<RentItemModel> fetchRentEntityById(String id) async {
 }
 
 Future<List<RentItemModel>> fetchRentItems() async {
-
-  try
-  {
+  try {
     final response = await new Dio().get('$API_URL/rent');
     if (response.statusCode == 200) {
       print(response.data.toString());
@@ -33,8 +30,9 @@ Future<List<RentItemModel>> fetchRentItems() async {
       dev.log(response.data.toString());
       List<dynamic> rentData = mapResponse['rentEntities'];
       if (!CollectionUtils.isEmpty(rentData)) {
-        List<RentItemModel> result =
-        rentData.map((json) => RentItemModel.fromResponseJson(json)).toList();
+        List<RentItemModel> result = rentData
+            .map((json) => RentItemModel.fromResponseJson(json))
+            .toList();
         return result;
       }
       return List.empty();
@@ -42,12 +40,7 @@ Future<List<RentItemModel>> fetchRentItems() async {
       throw Exception(
           'Failed to load rent items from API:  ${response.toString()}');
     }
-  }on DioError catch(e)
-  {
+  } on DioError catch (e) {
     print(e);
   }
-
-
-
-
 }

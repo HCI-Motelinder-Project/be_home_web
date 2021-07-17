@@ -63,7 +63,7 @@ class _ManuallyCarouselSliderState extends State<ManuallyCarouselSlider> {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(appMainColor),
+                          MaterialStateProperty.all<Color>(APP_PRIMARY_COLOR),
                     ),
                     onPressed: () => _controller.previousPage(),
                     child: Text('←'),
@@ -74,7 +74,7 @@ class _ManuallyCarouselSliderState extends State<ManuallyCarouselSlider> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(appMainColor),
+                            MaterialStateProperty.all<Color>(APP_PRIMARY_COLOR),
                       ),
                       onPressed: () => _controller.animateToPage(pageIndex),
                       child: Text("$pageIndex"),
@@ -85,7 +85,7 @@ class _ManuallyCarouselSliderState extends State<ManuallyCarouselSlider> {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(appMainColor),
+                          MaterialStateProperty.all<Color>(APP_PRIMARY_COLOR),
                     ),
                     onPressed: () => _controller.nextPage(),
                     child: Text('→'),
