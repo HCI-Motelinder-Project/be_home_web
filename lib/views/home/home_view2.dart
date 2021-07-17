@@ -57,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: appMainColor.withOpacity(0.1),
+        color: APP_PRIMARY_COLOR.withOpacity(0.1),
         child: ListView(
           scrollDirection: Axis.vertical,
           children: [
@@ -65,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border(
-                  bottom: BorderSide(width: .5, color: appMainColor),
+                  bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                 ),
               ),
               child: Center(

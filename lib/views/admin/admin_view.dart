@@ -18,7 +18,7 @@ class _AdminMainViewState extends State<AdminMainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: appMainColor.withOpacity(0.1),
+        color: APP_PRIMARY_COLOR.withOpacity(0.1),
         child: ListView(
           scrollDirection: Axis.vertical,
           children: [
@@ -29,7 +29,7 @@ class _AdminMainViewState extends State<AdminMainView> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border(
-                  bottom: BorderSide(width: .5, color: appMainColor),
+                  bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                 ),
               ),
             ),
@@ -44,7 +44,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                       padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                       decoration: BoxDecoration(
                         border: Border(
-                          bottom: BorderSide(width: .5, color: appMainColor),
+                          bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                         ),
                       ),
                       child: Row(
@@ -100,7 +100,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                           Container(
                             width: 1,
                             height: 150,
-                            color: appMainColor,
+                            color: APP_PRIMARY_COLOR,
                           ),
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
@@ -108,40 +108,6 @@ class _AdminMainViewState extends State<AdminMainView> {
                               onTap: (){
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) => ManagementView(index: 1,)));
-                              },
-                              child: Container(
-                                width: 280,
-                                constraints: BoxConstraints(
-                                    maxWidth: 200, maxHeight: 150),
-                                padding: EdgeInsets.symmetric(vertical: 20),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.sticky_note_2_outlined,
-                                      size: 40,
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      "Quản lý bài đăng",
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 1,
-                            height: 150,
-                            color: appMainColor,
-                          ),
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: (){
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => ManagementView(index: 2,)));
                               },
                               child: Container(
                                 width: 280,
@@ -164,7 +130,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                                         ),
                                         SizedBox(height: 2),
                                         Text(
-                                          "nhà trọ & nhà nguyên căn",
+                                          "dịch vụ cho thuê",
                                           style: TextStyle(fontSize: 18),
                                         ),
                                       ],
@@ -177,14 +143,14 @@ class _AdminMainViewState extends State<AdminMainView> {
                           Container(
                             width: 1,
                             height: 150,
-                            color: appMainColor,
+                            color: APP_PRIMARY_COLOR,
                           ),
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
                               onTap: (){
                                 Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => ManagementView(index: 3,)));
+                                    MaterialPageRoute(builder: (context) => ManagementView(index: 2,)));
                               },
                               child: Container(
                                 width: 280,
@@ -195,7 +161,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
-                                      Icons.kitchen,
+                                      Icons.settings,
                                       size: 40,
                                     ),
                                     SizedBox(height: 10),
@@ -203,12 +169,7 @@ class _AdminMainViewState extends State<AdminMainView> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Quản lý",
-                                          style: TextStyle(fontSize: 18),
-                                        ),
-                                        SizedBox(height: 5,),
-                                        Text(
-                                          "cơ sở vật chất & dịch vụ",
+                                          "Quản lý tiện ích",
                                           style: TextStyle(fontSize: 18),
                                         ),
                                       ],
@@ -225,8 +186,8 @@ class _AdminMainViewState extends State<AdminMainView> {
                       width: MediaQuery.of(context).size.width * .75,
                       decoration: BoxDecoration(
                         border: Border(
-                          top: BorderSide(width: .5, color: appMainColor),
-                          bottom: BorderSide(width: .5, color: appMainColor),
+                          top: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+                          bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                         ),
                       ),
                       child: Column(
@@ -260,18 +221,22 @@ class _AdminMainViewState extends State<AdminMainView> {
                                       MouseRegion(
                                         cursor: SystemMouseCursors.click,
                                         child: GestureDetector(
+                                          onTap:(){
+                                            Navigator.push(context,
+                                                MaterialPageRoute(builder: (context) => ManagementView(index: 1,rentIndex: 1,)));
+                                          },
                                           child: DecoratedIcon(
                                             Icons.arrow_forward_ios_outlined,
                                             size: 60,
-                                            color: appMainColor,
+                                            color: APP_PRIMARY_COLOR,
                                             shadows: [
                                               BoxShadow(
                                                 blurRadius: 6.0,
-                                                color: appMainColor,
+                                                color: APP_PRIMARY_COLOR,
                                               ),
                                               BoxShadow(
                                                 blurRadius: 6.0,
-                                                color: appMainColor,
+                                                color: APP_PRIMARY_COLOR,
                                                 offset: Offset(0, 1.0),
                                               ),
                                             ],

@@ -47,6 +47,18 @@ class UserModel {
         roleId: json['account']['roleId'],
         role: getRoleFromJsonCode(json['account']['roleName']));
   }
+  factory UserModel.fromAccountsResponseJson(Map<String, dynamic> json) {
+    return UserModel(
+        id: json['userId'],
+        email: json['email'],
+        phone: json['phone'],
+        name: json['fullname'],
+        dateOfBirth: DateTime.parse(json['dateOfBirth']),
+        status: json['status'],
+        image: json['image'],
+        roleId: json['roleId'],
+        role: getRoleFromJsonCode(json['role']['name']));
+  }
 }
 
 enum Role { ADMIN, RENTER, OWNER }

@@ -17,11 +17,11 @@ class _RentEntityWidgetForAdminState extends State<RentEntityWidgetForAdmin> {
       padding: EdgeInsets.all(10),
       width: 600,
       decoration: BoxDecoration(
-        border: Border.all(color: appMainColor, width: .5),
+        border: Border.all(color: APP_PRIMARY_COLOR, width: .5),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: appMainColor.withOpacity(0.5),
+            color: APP_PRIMARY_COLOR.withOpacity(0.5),
             spreadRadius: 5,
             blurRadius: 7,
             offset: Offset(0, 3), // changes position of shadow

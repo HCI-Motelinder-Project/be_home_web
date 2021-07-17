@@ -31,7 +31,7 @@ class _HouseManagementViewState extends State<HouseManagementView> {
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border(
-                bottom: BorderSide(width: .5, color: appMainColor),
+                bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
               ),
             ),
             child: Container(
@@ -57,10 +57,10 @@ class _HouseManagementViewState extends State<HouseManagementView> {
                     child: AnimatedContainer(
                       height: 60,
                       decoration: BoxDecoration(
-                        color: lastIndex == index ? appMainColor : Colors.white,
+                        color: lastIndex == index ? APP_PRIMARY_COLOR : Colors.white,
                         border: Border(
-                          bottom: BorderSide(width: .5, color: appMainColor),
-                          top: BorderSide(width: .5, color: appMainColor),
+                          bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+                          top: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                         ),
                       ),
                       duration: Duration(microseconds: 500),
@@ -75,7 +75,7 @@ class _HouseManagementViewState extends State<HouseManagementView> {
                                 fontSize: 18,
                                 color: lastIndex == index
                                     ? Colors.white
-                                    : appMainColor,
+                                    : APP_PRIMARY_COLOR,
                               ),
                             ),
                           ),
@@ -92,8 +92,8 @@ class _HouseManagementViewState extends State<HouseManagementView> {
             decoration: BoxDecoration(
                 color: Colors.green,
                 border: Border(
-                  left: BorderSide(color: appMainColor, width: .5),
-                  right: BorderSide(color: appMainColor, width: .5),
+                  left: BorderSide(color: APP_PRIMARY_COLOR, width: .5),
+                  right: BorderSide(color: APP_PRIMARY_COLOR, width: .5),
                 )),
             child: PageView(
               controller: _pageController,
@@ -117,10 +117,10 @@ class _HouseManagementViewState extends State<HouseManagementView> {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(width: 1, color: appMainColor),
+        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
         boxShadow: [
           BoxShadow(
-            color: appMainColor.withOpacity(0.5),
+            color: APP_PRIMARY_COLOR.withOpacity(0.5),
             spreadRadius: .5,
             blurRadius: 5,
             offset: Offset(0, 3),
@@ -234,10 +234,10 @@ class _HouseManagementViewState extends State<HouseManagementView> {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(width: 1, color: appMainColor),
+        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
         boxShadow: [
           BoxShadow(
-            color: appMainColor.withOpacity(0.5),
+            color: APP_PRIMARY_COLOR.withOpacity(0.5),
             spreadRadius: .5,
             blurRadius: 5,
             offset: Offset(0, 3), // changes position of shadow
@@ -330,7 +330,7 @@ class _HouseManagementViewState extends State<HouseManagementView> {
                         SizedBox(
                           width: 10,
                         ),
-                        AnimatedButton(40, 150, "Xác Thực", appMainColor),
+                        AnimatedButton(40, 150, "Xác Thực", APP_PRIMARY_COLOR),
                       ],
                     ),
                   ],

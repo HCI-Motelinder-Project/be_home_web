@@ -3,15 +3,16 @@ import 'package:behome/views/home/home_view.dart';
 import 'package:behome/widgets/admin/account_management_widget.dart';
 import 'package:behome/widgets/admin/facility_service_management_widget.dart';
 import 'package:behome/widgets/admin/house_manage_widget.dart';
-import 'package:behome/widgets/admin/post_management_widget.dart';
+import 'package:behome/widgets/admin/rententity_management_widget.dart';
 import 'package:behome/widgets/nav_bar/top_nav_bar_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ManagementView extends StatefulWidget {
   final int index;
+  final int rentIndex;
 
-  const ManagementView({Key key, this.index}) : super(key: key);
+  const ManagementView({Key key, this.index,this.rentIndex}) : super(key: key);
 
   @override
   _ManagementViewState createState() => _ManagementViewState();
@@ -19,26 +20,27 @@ class ManagementView extends StatefulWidget {
 
 class _ManagementViewState extends State<ManagementView> {
   int lastIndex;
+  int lastRentIndex;
   PageController _pageController = PageController();
   int count = 0;
   List<String> title = [
     "Quản lý tài khoản",
-    "Quản lý bài đăng",
-    "Quản lý-nhà trọ & nhà nguyên căn",
-    "Quản lý-cơ sở vật chất & dịch vụ",
+    "Quản lý-dịch vụ cho thuê",
+    "Quản lý tiện ích",
   ];
 
   @override
   void initState() {
     super.initState();
     lastIndex = widget.index;
+    widget.rentIndex != null ? lastRentIndex = widget.rentIndex : lastRentIndex = 0;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: appMainColor.withOpacity(0.1),
+        color: APP_PRIMARY_COLOR.withOpacity(0.1),
         constraints: BoxConstraints(
           maxHeight: double.infinity,
         ),
@@ -51,7 +53,7 @@ class _ManagementViewState extends State<ManagementView> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border(
-                  bottom: BorderSide(width: .5, color: appMainColor),
+                  bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                 ),
               ),
             ),
@@ -67,8 +69,8 @@ class _ManagementViewState extends State<ManagementView> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border(
-                            left: BorderSide(color: appMainColor, width: .5),
-                            right: BorderSide(color: appMainColor, width: .5),
+                            left: BorderSide(color: APP_PRIMARY_COLOR, width: .5),
+                            right: BorderSide(color: APP_PRIMARY_COLOR, width: .5),
                           )),
                       width: MediaQuery.of(context).size.width * .15,
                       child: Column(
@@ -99,7 +101,7 @@ class _ManagementViewState extends State<ManagementView> {
                                   (BuildContext context, int index) {
                                 return SizedBox();
                               },
-                              itemCount: 4,
+                              itemCount: 3,
                               itemBuilder: (BuildContext, int index) {
                                 return GestureDetector(
                                   onTap: () {
@@ -114,13 +116,13 @@ class _ManagementViewState extends State<ManagementView> {
                                     height: 65,
                                     decoration: BoxDecoration(
                                       color: lastIndex == index
-                                          ? appMainColor
+                                          ? APP_PRIMARY_COLOR
                                           : Colors.white,
                                       border: Border(
                                         bottom: BorderSide(
-                                            width: .5, color: appMainColor),
+                                            width: .5, color: APP_PRIMARY_COLOR),
                                         top: BorderSide(
-                                            width: .5, color: appMainColor),
+                                            width: .5, color: APP_PRIMARY_COLOR),
                                       ),
                                     ),
                                     duration: Duration(microseconds: 500),
@@ -138,7 +140,7 @@ class _ManagementViewState extends State<ManagementView> {
                                                 fontSize: 18,
                                                 color: lastIndex == index
                                                     ? Colors.white
-                                                    : appMainColor,
+                                                    : APP_PRIMARY_COLOR,
                                               ),
                                             ),
                                             title[index].split("-").length > 1
@@ -153,7 +155,7 @@ class _ManagementViewState extends State<ManagementView> {
                                                         color:
                                                             lastIndex == index
                                                                 ? Colors.white
-                                                                : appMainColor,
+                                                                : APP_PRIMARY_COLOR,
                                                       ),
                                                     ),
                                                   )
@@ -174,18 +176,16 @@ class _ManagementViewState extends State<ManagementView> {
                       width: MediaQuery.of(context).size.width * .6,
                       height: MediaQuery.of(context).size.height * .95,
                       decoration: BoxDecoration(
-                          color: Colors.green,
                           border: Border(
-                            left: BorderSide(color: appMainColor, width: .5),
-                            right: BorderSide(color: appMainColor, width: .5),
+                            left: BorderSide(color: APP_PRIMARY_COLOR, width: .5),
+                            right: BorderSide(color: APP_PRIMARY_COLOR, width: .5),
                           )),
                       child: PageView(
                         controller: _pageController,
                         children: [
                           if (lastIndex == 0) AccountManagement(),
-                          if (lastIndex == 1) PostManagementView(),
-                          if (lastIndex == 2) HouseManagementView(),
-                          if (lastIndex == 3) FacilityServiceManagementView(),
+                          if (lastIndex == 1) RentEntityManagementView(index: lastRentIndex,),
+                          if (lastIndex == 2) FacilityServiceManagementView(),
                         ],
                       ),
                     ),

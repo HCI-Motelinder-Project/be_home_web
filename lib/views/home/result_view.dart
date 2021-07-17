@@ -24,7 +24,7 @@ class _ResultViewState extends State<ResultView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: appMainColor.withOpacity(0.1),
+        color: APP_PRIMARY_COLOR.withOpacity(0.1),
         child: ListView(
           scrollDirection: Axis.vertical,
           children: [
@@ -32,7 +32,7 @@ class _ResultViewState extends State<ResultView> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border(
-                  bottom: BorderSide(width: .5, color: appMainColor),
+                  bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                 ),
               ),
               child: Center(
@@ -160,7 +160,7 @@ class _ResultViewState extends State<ResultView> {
                                 ),
                                 RangeSlider(
                                   values: _rangeSliderDiscreteValues,
-                                  activeColor: appMainColor,
+                                  activeColor: APP_PRIMARY_COLOR,
                                   min: 500000,
                                   max: 10000000,
                                   labels: RangeLabels(

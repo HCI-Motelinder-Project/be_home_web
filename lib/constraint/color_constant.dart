@@ -1,15 +1,34 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
-// 0xFFff9aa2
+const APP_PRIMARY_COLOR = Color(0xff10c7b9);
+const APP_PRIMARY_COLOR_LIGHT = Color(0xff64fbeb);
+const APP_PRIMARY_COLOR_DARK = Color(0xff009689);
+const APP_SECONDARY_COLOR = Color(0xfff87021);
+const APP_SECONDARY_COLOR_LIGHT = Color(0xffffa151);
+const APP_SECONDARY_COLOR_DARK = Color(0xffbe4000);
+const APP_BACKGROUND_COLOR = Color(0xffe0e0e0);
+const APP_BACKGROUND_COLOR_LIGHT = Color(0xffffffff);
+const APP_BACKGROUND_COLOR_DARK = Color(0xffbcbcbc);
+const APP_TEXT_COLOR_CYAN = Color(0xffe0f2f1);
+const APP_TEXT_COLOR_BLACK = Color(0xff000000);
+const APP_NOTE_COLOR = Color(0xFFD50000);
+const APP_CONFIRM_COLOR = Color(0xFF0F69AF);
+const APP_BUTTON_COLOAppR = Color(0xffffffff);
 
-const appMainColor = Color(0xff16a596);
-const appSecondColor = Color(0xFFD4EBDB);
-const greyColor = Color(0xFFB4B0B0);
-const subTitleColor = Color(0xFF505050);
-const fillColor = Color(0xFFFFFFFF);
-const borderColor = Color(0xFFE8E8F3);
-const backgroundColor = Color(0xFFFAFAFA);
-const priceColor = Color(0xFFf56a79);
-const tagColor = Color(0xfff5d26a);
-const warningColor = Color(0xfff5d26a);
-const noteRedColor = Color(0xFFf56a79);
+// const APP_SECONDARY_COLOR = Color(0xfffdd835);
+// const APP_SECONDARY_COLOR_LIGHT = Color(0xffffff6b);
+// const APP_SECONDARY_COLOR_DARK = Color(0xffc6a700);
+// const appTextWhiteColor = Color(0xFFFFFFFF);
+// const APP_BACKGROUND_COLOR = Color(0xFFabe5eb);
+// const appHeaderColor = Color(0xFFF8F8FC);
+// const appTitleColor = Color(0xFF1B1B25);
+// const APP_PRIMARY_COLOR = Color(0xff16a596);
+// const appSecondColor = Color(0xFFD4EBDB);
+// const greyColor = Color(0xFFB4B0B0);
+// const subTitleColor = Color(0xFF505050);
+// const fillColor = Color(0xFFFFFFFF);
+// const borderColor = Color(0xFFE8E8F3);
+// const backgroundColor = Color(0xFFFAFAFA);
+// const priceColor = Color(0xFFf56a79);
+// const tagColor = Color(0xfff5d26a);
+// const warningColor = Color(0xfff5d26a);

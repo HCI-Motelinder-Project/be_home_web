@@ -28,23 +28,7 @@ class AnimatedButtonNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tab(
-      child: AnimatedButton(40, 150, this.title, appMainColor),
-    );
-  }
-}
-
-class ButtonNavbar extends StatelessWidget {
-  final String title;
-
-  ButtonNavbar({ this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        child: NormalButton(this.title),
-      ),
+      child: AnimatedButton(40, 150, this.title, APP_PRIMARY_COLOR),
     );
   }
 }

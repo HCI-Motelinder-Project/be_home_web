@@ -22,7 +22,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: appMainColor.withOpacity(0.1),
+        color: APP_PRIMARY_COLOR.withOpacity(0.1),
         child: ListView(
           scrollDirection: Axis.vertical,
           children: [
@@ -31,7 +31,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border(
-                  bottom: BorderSide(width: .5, color: appMainColor),
+                  bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                 ),
               ),
               child: Center(
@@ -84,7 +84,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                                   width: 140,
                                   height: 60,
                                   decoration: BoxDecoration(
-                                    color: appMainColor.withOpacity(.1),
+                                    color: APP_PRIMARY_COLOR.withOpacity(.1),
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -111,7 +111,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                                   margin: EdgeInsets.all(5),
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: appMainColor.withOpacity(.1),
+                                    color: APP_PRIMARY_COLOR.withOpacity(.1),
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -138,7 +138,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                                   margin: EdgeInsets.all(5),
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: appMainColor.withOpacity(.1),
+                                    color: APP_PRIMARY_COLOR.withOpacity(.1),
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -165,7 +165,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                                   margin: EdgeInsets.all(5),
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: appMainColor.withOpacity(.1),
+                                    color: APP_PRIMARY_COLOR.withOpacity(.1),
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -192,7 +192,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                                   margin: EdgeInsets.all(5),
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: appMainColor.withOpacity(.1),
+                                    color: APP_PRIMARY_COLOR.withOpacity(.1),
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -219,7 +219,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                                   margin: EdgeInsets.all(5),
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: appMainColor.withOpacity(.1),
+                                    color: APP_PRIMARY_COLOR.withOpacity(.1),
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -246,7 +246,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                                   margin: EdgeInsets.all(5),
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: appMainColor.withOpacity(.1),
+                                    color: APP_PRIMARY_COLOR.withOpacity(.1),
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -273,7 +273,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                                   margin: EdgeInsets.all(5),
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: appMainColor.withOpacity(.1),
+                                    color: APP_PRIMARY_COLOR.withOpacity(.1),
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -302,7 +302,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                             padding: EdgeInsets.all(10),
                             width: MediaQuery.of(context).size.width * .45,
                             decoration: BoxDecoration(
-                              color: appMainColor.withOpacity(.1),
+                              color: APP_PRIMARY_COLOR.withOpacity(.1),
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -326,7 +326,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                               50,
                               MediaQuery.of(context).size.width * 0.5,
                               "Đặt lịch hẹn",
-                              appMainColor),
+                              APP_PRIMARY_COLOR),
                         ],
                       ),
                     ),
@@ -354,7 +354,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                           children: [
                             Icon(
                               Icons.account_circle,
-                              color: appMainColor,
+                              color: APP_PRIMARY_COLOR,
                               size: 30,
                             ),
                             SizedBox(
@@ -380,7 +380,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                             Container(
                               height: 60,
                               width: 2,
-                              color: appMainColor,
+                              color: APP_PRIMARY_COLOR,
                             ),
                             Column(
                               children: [
@@ -600,7 +600,7 @@ class _RentEntityDetailState extends State<RentEntityDetail> {
                               children: [
                                 Icon(
                                   Icons.notes_outlined,
-                                  color: appMainColor,
+                                  color: APP_PRIMARY_COLOR,
                                   size: 30,
                                 ),
                                 SizedBox(
