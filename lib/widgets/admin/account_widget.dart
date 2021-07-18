@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 class AccountWidget extends StatefulWidget {
   final int index;
   final UserModel model;
+  final Function function;
 
-  const AccountWidget({Key key, this.index, this.model}) : super(key: key);
+  const AccountWidget({Key key, this.index, this.model, this.function})
+      : super(key: key);
 
   @override
   _AccountWidgetState createState() => _AccountWidgetState();
@@ -158,11 +160,9 @@ class _AccountWidgetState extends State<AccountWidget> {
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
-              onTap: (){
-                updateRole(widget.model);
-                disableUser(widget.model);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ManagementView(index: 0,)));
+              onTap: () async {
+                await update(widget.model);
+                await widget.function();
               },
               child: Center(
                 child: Text(

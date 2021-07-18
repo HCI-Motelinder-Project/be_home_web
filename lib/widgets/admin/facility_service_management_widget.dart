@@ -52,11 +52,15 @@ class _FacilityServiceManagementViewState
     });
   }
 
+  void loadAll(){
+    loadAllFacilities();
+    loadAllServices();
+  }
+
   @override
   void initState() {
     super.initState();
-    loadAllFacilities();
-    loadAllServices();
+    loadAll();
   }
 
   @override
@@ -96,7 +100,7 @@ class _FacilityServiceManagementViewState
                               },
                             ).then(
                               (value) {
-                                loadAllFacilities();
+                                loadAll();
                               },
                             );
                           },
@@ -139,7 +143,7 @@ class _FacilityServiceManagementViewState
                                 return CreateServiceModal();
                               },
                             ).then((value) {
-                              loadAllServices();
+                              loadAll();
                             });
                           },
                         ),

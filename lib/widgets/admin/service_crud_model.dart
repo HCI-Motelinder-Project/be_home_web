@@ -28,6 +28,9 @@ const _iconTypes = <IconData>[
   Icons.local_laundry_service_outlined,
   Icons.pets_outlined,
   Icons.access_time_outlined,
+  Icons.room_service_outlined,
+  Icons.school_outlined,
+  Icons.directions_bus_outlined,
 ];
 
 class _CreateServiceModalState extends State<CreateServiceModal> {
