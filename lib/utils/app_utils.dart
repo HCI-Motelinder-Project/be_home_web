@@ -21,32 +21,29 @@ class ModelUtils {
     }
   }
 
-  static Icon convertFacilityToIcon(String facility) {
-    switch (facility) {
-      case 'wifi':
-        return Icon(MdiIcons.wifi);
-      case 'wc':
-        return Icon(MdiIcons.toilet);
-      case 'furniture':
-        return Icon(MdiIcons.sofaSingle);
-      case 'ac':
-        return Icon(MdiIcons.airConditioner);
-      case 'parking':
-        return Icon(MdiIcons.parking);
-      case 'washing':
-        return Icon(MdiIcons.washingMachine);
-      case 'fridge':
-        return Icon(MdiIcons.fridge);
+  static int convertGenderToInt(String gender) {
+    switch (gender) {
+      case "Nam":
+        return 1;
+      case "Nữ":
+        return 2;
       default:
-        return Icon(MdiIcons.star);
+        return 3;
     }
+  }
+
+  static List<int> convertFacilityToIcon(List<dynamic> data) {
+    return data.map((json) => int.parse(json['facility']['icon'])).toList();
+  }
+
+  static List<int> convertServiceToIcon(List<dynamic> data) {
+    return data.map((json) => int.parse(json['service']['icon'])).toList();
   }
 }
 
 class DataUtils {
-  static final vnConcurrency = NumberFormat.currency(
+  static final vnConcurrency = NumberFormat.compactLong(
     locale: 'vi-VN',
-    symbol: 'đ',
   );
 
   static String convertPriceFromResponse(dynamic x) {

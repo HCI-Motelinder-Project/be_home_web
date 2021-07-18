@@ -14,13 +14,17 @@ class RentItemModel {
   String gender;
   String imageCover;
   String type;
-  List<String> facilities;
-  double rating;
-  int totalRating;
+  String status;
+  List<int> facilities;
+  List<int> services;
   String houseId;
   String ownerName;
+  String description;
+  String rentTypeId;
+  int priceInt;
 
   RentItemModel({
+    this.id,
     this.address,
     this.name,
     this.area,
@@ -31,15 +35,19 @@ class RentItemModel {
     this.imageCover,
     this.type,
     this.facilities,
-    this.rating,
-    this.totalRating,
     this.houseId,
     this.ownerName,
+    this.status,
+    this.description,
+    this.rentTypeId,
+    this.priceInt,
+    this.services,
   });
 
   // This is a static method
   factory RentItemModel.fromJson(Map<String, dynamic> json) {
     return RentItemModel(
+      id: json["rentEntityId"],
       address: json["address"],
       name: json["name"],
       area: json["area"],
@@ -49,13 +57,12 @@ class RentItemModel {
       price: json["price"],
       imageCover: json["imageCover"],
       type: json["type"],
-      rating: json["rating"],
-      totalRating: json["totalRating"],
     );
   }
 
   factory RentItemModel.fromResponseJson(Map<String, dynamic> json) {
     return RentItemModel(
+      id: json["rentEntityId"],
       address: json["house"]["address"],
       area: json["area"],
       name: json["name"],
@@ -64,12 +71,16 @@ class RentItemModel {
           json["distance"] != null ? json["rentEntities"]["distance"] : "~500m",
       gender: ModelUtils.convertGenderFromResponse(json["gender"]),
       price: DataUtils.convertPriceFromResponse(json["price"]),
+      priceInt: json["price"],
       imageCover: json["image"] ?? DEFAULT_IMAGE,
       type: json["rentType"]["name"],
-      rating: 4.0,
-      totalRating: 50,
-      houseId: json["houseId"],
-      ownerName: json["house"]["ownerName"]
+      houseId: json["house"]["houseId"],
+      ownerName: json["house"]["ownerName"],
+      status: json["status"],
+      description: json["description"],
+      rentTypeId: json["rentType"]["rentTypeId"],
+      facilities: ModelUtils.convertFacilityToIcon(json["rentFacility"]),
+      services: ModelUtils.convertServiceToIcon(json["rentService"]),
     );
   }
 

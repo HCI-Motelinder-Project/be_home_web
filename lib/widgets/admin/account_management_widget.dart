@@ -22,10 +22,10 @@ class _AccountManagementState extends State<AccountManagement> {
     setState(() {
       _isLoaded = false;
     });
-    int index = 0;
+    int index = 1;
     loadUsers().then((value) {
       List<Widget> listUsers = value
-          .map((item) => AccountWidget(index: index++, model: item))
+          .map((item) => AccountWidget(index: index++, model: item,function: loadAllUsers,))
           .toList();
       setState(() {
         _isLoaded = true;

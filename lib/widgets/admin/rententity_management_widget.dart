@@ -1,6 +1,11 @@
 import 'package:behome/constraint/color_constant.dart';
-import 'package:behome/widgets/button/custom_button.dart';
+import 'package:behome/models/rent_item_model.dart';
+import 'package:behome/presenters/rent_item_presenter.dart';
+import 'package:behome/widgets/admin/approved_post_widget.dart';
+import 'package:behome/widgets/admin/canceled_post_widget.dart';
+import 'package:behome/widgets/admin/pending_post_widget.dart';
 import 'package:flutter/material.dart';
+import "package:charcode/charcode.dart";
 
 class RentEntityManagementView extends StatefulWidget {
   final int index;
@@ -13,17 +18,93 @@ class RentEntityManagementView extends StatefulWidget {
 }
 
 class _RentEntityManagementViewState extends State<RentEntityManagementView> {
+  bool _isPendingLoaded;
+  List<Widget> _listPendingWidget = [];
+
+  bool _isApprovedLoaded;
+  List<Widget> _listApprovedWidget = [];
+
+  bool _isCanceledLoaded;
+  List<Widget> _listCanceledWidget = [];
+
   int lastIndex;
   PageController _pageController = PageController();
   List<String> title = [
     "Đang chờ xác thực",
     "Đã xác thực",
-    "Xác thực không thành công"
+    "Đã xóa / Đã từ chối"
   ];
+
+  Future<void> loadAllApprovedRentEntities() async {
+    setState(() {
+      _isApprovedLoaded = false;
+    });
+    loadAllRentEntities().then((value) {
+      List<Widget> listApproved = value
+          .map((item) => ApprovedPostWidget(
+                function: loadAll,
+                model: item,
+              ))
+          .toList();
+      setState(() {
+        _listApprovedWidget = listApproved;
+        _isApprovedLoaded = true;
+      });
+    });
+  }
+
+  Future<void> loadAllPendingRentEntities() async {
+    setState(() {
+      _isPendingLoaded = false;
+    });
+    loadPendingRentEntities().then((value) {
+      List<Widget> listPending = value
+          .map((item) => PendingPostWidget(
+                model: item,
+                function: loadAll,
+              ))
+          .toList();
+      setState(() {
+        _listPendingWidget = listPending;
+        _isPendingLoaded = true;
+      });
+    });
+  }
+
+  Future<void> loadAllCanceledRentEntities() async {
+    setState(() {
+      _isCanceledLoaded = false;
+    });
+    loadRejectedRentEntities().then((value) {
+      List<Widget> listCanceled = value
+          .map((item) => CanceledPostWidget(model: item, function: loadAll))
+          .toList();
+      setState(() {
+        _listCanceledWidget = listCanceled;
+        _isCanceledLoaded = true;
+      });
+    });
+    loadUnavailableRentEntities().then((value) {
+      List<Widget> listCanceled = value
+          .map((item) => CanceledPostWidget(model: item, function: loadAll))
+          .toList();
+      setState(() {
+        _listCanceledWidget += listCanceled;
+        _isCanceledLoaded = true;
+      });
+    });
+  }
+
+  void loadAll() {
+    loadAllApprovedRentEntities();
+    loadAllPendingRentEntities();
+    loadAllCanceledRentEntities();
+  }
 
   @override
   void initState() {
     super.initState();
+    loadAll();
     widget.index != 0 ? lastIndex = widget.index : lastIndex = 0;
   }
 
@@ -66,9 +147,12 @@ class _RentEntityManagementViewState extends State<RentEntityManagementView> {
                     child: AnimatedContainer(
                       height: 60,
                       decoration: BoxDecoration(
-                        color: lastIndex == index ? APP_PRIMARY_COLOR : Colors.white,
+                        color: lastIndex == index
+                            ? APP_PRIMARY_COLOR
+                            : Colors.white,
                         border: Border(
-                          bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+                          bottom:
+                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                           top: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
                         ),
                       ),
@@ -118,764 +202,8 @@ class _RentEntityManagementViewState extends State<RentEntityManagementView> {
     );
   }
 
-  Widget PendingPostWidget() {
-    return Container(
-      constraints: BoxConstraints(
-        maxWidth: double.infinity,
-      ),
-      height: 200,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-        boxShadow: [
-          BoxShadow(
-            color: APP_PRIMARY_COLOR.withOpacity(0.5),
-            spreadRadius: .5,
-            blurRadius: 5,
-            offset: Offset(0, 3), // changes position of shadow
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 300,
-            height: 200,
-            child: Image.asset(
-              "images/background.jpg",
-              fit: BoxFit.fill,
-            ),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Phòng trọ Minh Long",
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    Row(
-                      children: [
-                        Text("Trạng thái: "),
-                        Text(
-                          "Đang chờ xác thực",
-                          style: TextStyle(color: Colors.amber, fontSize: 16),
-                        ),
-                        SizedBox(width: 10),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Giới tính: Nam",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(
-                      width: 125,
-                    ),
-                    Text(
-                      "Số lượng: 2 người",
-                      style: TextStyle(fontSize: 16),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Cơ sở vật chất:",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Container(
-                      width: 50,
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("2"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.bed_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("1"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.bathroom_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("1"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.kitchen_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("1"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.ac_unit),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Dịch vụ:",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Container(
-                      width: 36,
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.local_hospital_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 36,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.restaurant_menu_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 36,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.pool_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 36,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.directions_bike_outlined),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
-                height: 39,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Địa chỉ: 302 Nguyễn Đình Chiểu",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Row(
-                      children: [
-                        AnimatedButton(40, 200, "Không xác thực", Colors.red),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        AnimatedButton(40, 150, "Xác thực", APP_PRIMARY_COLOR),
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget ApprovedPostWidget() {
-    return Container(
-      constraints: BoxConstraints(
-        maxWidth: double.infinity,
-      ),
-      height: 200,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-        boxShadow: [
-          BoxShadow(
-            color: APP_PRIMARY_COLOR.withOpacity(0.5),
-            spreadRadius: .5,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 300,
-            height: 200,
-            child: Image.asset(
-              "images/background.jpg",
-              fit: BoxFit.fill,
-            ),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Phòng trọ Minh Long",
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    Row(
-                      children: [
-                        Text("Trạng thái: "),
-                        Text(
-                          "Đã xác thực",
-                          style: TextStyle(color: Colors.green, fontSize: 16),
-                        ),
-                        SizedBox(width: 10),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Giới tính: Nam",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(
-                      width: 125,
-                    ),
-                    Text(
-                      "Số lượng: 2 người",
-                      style: TextStyle(fontSize: 16),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Cơ sở vật chất:",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Container(
-                      width: 50,
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("2"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.bed_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("1"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.bathroom_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("1"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.kitchen_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("1"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.ac_unit),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Dịch vụ:",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Container(
-                      width: 36,
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.local_hospital_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 36,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.restaurant_menu_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 36,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.pool_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 36,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.directions_bike_outlined),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
-                height: 39,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Địa chỉ: 302 Nguyễn Đình Chiểu",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    AnimatedButton(40, 200, "Hủy xác thực", Colors.red),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget CanceledPostWidget() {
-    return Container(
-      constraints: BoxConstraints(
-        maxWidth: double.infinity,
-      ),
-      height: 200,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-        boxShadow: [
-          BoxShadow(
-            color: APP_PRIMARY_COLOR.withOpacity(0.5),
-            spreadRadius: .5,
-            blurRadius: 5,
-            offset: Offset(0, 3), // changes position of shadow
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 300,
-            height: 200,
-            child: Image.asset(
-              "images/background.jpg",
-              fit: BoxFit.fill,
-            ),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Phòng trọ Minh Long",
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    Row(
-                      children: [
-                        Text("Trạng thái: "),
-                        Text(
-                          "Đã hủy xác thực",
-                          style: TextStyle(color: Colors.red, fontSize: 16),
-                        ),
-                        SizedBox(width: 10),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Giới tính: Nam",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(
-                      width: 125,
-                    ),
-                    Text(
-                      "Số lượng: 2 người",
-                      style: TextStyle(fontSize: 16),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Cơ sở vật chất:",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Container(
-                      width: 50,
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("2"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.bed_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("1"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.bathroom_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("1"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.kitchen_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("1"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.ac_unit),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Dịch vụ:",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Container(
-                      width: 36,
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.local_hospital_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 36,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.restaurant_menu_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 36,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.pool_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 36,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: APP_PRIMARY_COLOR),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.directions_bike_outlined),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
-                height: 39,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Địa chỉ: 302 Nguyễn Đình Chiểu",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget ListPendingWidget() {
+    ScrollController _controller = ScrollController();
     return Container(
       padding: EdgeInsets.all(5),
       constraints: BoxConstraints(
@@ -884,14 +212,14 @@ class _RentEntityManagementViewState extends State<RentEntityManagementView> {
       color: Colors.white,
       height: 850,
       child: ListView(
-        children: [
-          PendingPostWidget(),
-        ],
+        controller: _controller,
+        children: _listPendingWidget,
       ),
     );
   }
 
   Widget ListApprovedWidget() {
+    ScrollController _controller = ScrollController();
     return Container(
       padding: EdgeInsets.all(5),
       constraints: BoxConstraints(
@@ -900,14 +228,14 @@ class _RentEntityManagementViewState extends State<RentEntityManagementView> {
       color: Colors.white,
       height: 850,
       child: ListView(
-        children: [
-          ApprovedPostWidget(),
-        ],
+        controller: _controller,
+        children: _listApprovedWidget,
       ),
     );
   }
 
   Widget ListCanceledWidget() {
+    ScrollController _controller = ScrollController();
     return Container(
       padding: EdgeInsets.all(5),
       constraints: BoxConstraints(
@@ -916,9 +244,8 @@ class _RentEntityManagementViewState extends State<RentEntityManagementView> {
       color: Colors.white,
       height: 850,
       child: ListView(
-        children: [
-          CanceledPostWidget(),
-        ],
+        controller: _controller,
+        children: _listCanceledWidget,
       ),
     );
   }

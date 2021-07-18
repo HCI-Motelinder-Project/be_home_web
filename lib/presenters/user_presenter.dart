@@ -3,18 +3,31 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:behome/config/config.dart';
+import 'package:behome/models/rent_item_model.dart';
 import 'package:behome/models/user_model.dart';
 import 'package:behome/utils/app_utils.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 
-String getRoleString(Role role) {
+String getRoleId(Role role) {
   switch (role) {
-    case Role.ADMIN:
-      return "Admin";
+    case Role.OWNER:
+      return "B39C778B-0BDE-4E4E-9FE4-CDDC0C6477F6";
     case Role.RENTER:
-      return "Renter";
+      return "A4148B04-6730-4306-9980-11D0D416ABD0";
+    default:
+      return "A1C1B8C9-930B-47FE-A457-9CEB8D2D7783";
+  }
+}
+
+String getRoleName(Role role) {
+  switch (role) {
     case Role.OWNER:
       return "Owner";
+    case Role.RENTER:
+      return "Renter";
+    default:
+      return "Admin";
   }
 }
 
@@ -89,36 +102,26 @@ Future<List<UserModel>> loadUsers() async {
   }
 }
 
-Future<UserModel> disableUser(UserModel model) async {
-  var request = model.id;
-  var url = '$API_URL/user/disable';
+Future<UserModel> update(UserModel model) async {
+  var request = {
+    "userId": model.id,
+    "email": model.email,
+    "phone": model.phone,
+    "fullname": model.name,
+    "dateOfBirth": DateFormat('yyyy-MM-dd').format(model.dateOfBirth),
+    "status": model.status,
+    "roleId": getRoleId(model.role),
+    "image": model.image,
+    "roleName": getRoleName(model.role),
+  };
+  var url = '$API_URL/user/update';
 
   final response = await new Dio().put(url,
       options:
           Options(headers: {HttpHeaders.contentTypeHeader: 'application/json'}),
       data: jsonEncode(request));
   if (response.statusCode == 200) {
-    print("Disable successfully");
-  } else {
-    throw Exception(
-        'Failed to update facility from API:  ${response.toString()}');
-  }
-}
-
-Future<UserModel> updateRole(UserModel model) async {
-  print(model.id);
-  var request = {
-    "userId" : model.id,
-    "role"  : getRoleString(model.role)
-  };
-  var url = '$API_URL/user/update/role';
-
-  final response = await new Dio().put(url,
-      options:
-      Options(headers: {HttpHeaders.contentTypeHeader: 'application/json'}),
-      data: jsonEncode(request));
-  if (response.statusCode == 200) {
-    print("Update role successfully");
+    print("Update successfully");
   } else {
     throw Exception(
         'Failed to update facility from API:  ${response.toString()}');

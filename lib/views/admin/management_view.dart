@@ -5,6 +5,7 @@ import 'package:behome/widgets/admin/facility_service_management_widget.dart';
 import 'package:behome/widgets/admin/house_manage_widget.dart';
 import 'package:behome/widgets/admin/rententity_management_widget.dart';
 import 'package:behome/widgets/nav_bar/top_nav_bar_widget.dart';
+import 'package:behome/widgets/nav_bar/top_nav_bar_widget_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +49,7 @@ class _ManagementViewState extends State<ManagementView> {
           children: [
             Container(
               child: Center(
-                child: TopNavBar(),
+                child: SecondTopNavBar(),
               ),
               decoration: BoxDecoration(
                 color: Colors.white,

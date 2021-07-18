@@ -32,6 +32,7 @@ const _iconTypes = <IconData>[
   Icons.bathtub_outlined,
   Icons.window_outlined,
   Icons.yard_outlined,
+  Icons.dining_outlined,
 ];
 
 class _CreateFacilityModalState extends State<CreateFacilityModal> {
