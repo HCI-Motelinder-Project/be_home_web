@@ -25,7 +25,11 @@ class _AccountManagementState extends State<AccountManagement> {
     int index = 1;
     loadUsers().then((value) {
       List<Widget> listUsers = value
-          .map((item) => AccountWidget(index: index++, model: item,function: loadAllUsers,))
+          .map((item) => AccountWidget(
+                index: index++,
+                model: item,
+                function: loadAllUsers,
+              ))
           .toList();
       setState(() {
         _isLoaded = true;
@@ -42,132 +46,152 @@ class _AccountManagementState extends State<AccountManagement> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoaded
-        ? Container(
-            width: MediaQuery.of(context).size.width * .6,
+    double width = MediaQuery.of(context).size.width * .9;
+    double height = MediaQuery.of(context).size.height;
+    double tableWidth = MediaQuery.of(context).size.width * .9 - 40 - 20;
+
+    if (_isLoaded) {
+      return Container(
+        width: width,
+        height: height,
+        color: Colors.white,
+        padding: EdgeInsets.all(20),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
             color: Colors.white,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text("Danh sách tài khoản",
-                          style: TextStyle(fontSize: 20)),
-                    ],
-                  ),
+            boxShadow: [
+              BoxShadow(
+                color: APP_PRIMARY_COLOR.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 20,
+                offset: Offset(0, 0), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
                 ),
-                Row(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Danh sách tài khoản",
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: APP_PRIMARY_COLOR,
+                        letterSpacing: 3,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border(
-                          right:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                          bottom:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                        ),
+                        border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
                       ),
                       padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width * .6 * .05,
+                      width: tableWidth * .05,
                       alignment: Alignment.center,
-                      child: Text("STT"),
+                      child: Text(
+                        "STT",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        border: Border(
-                          right:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                          bottom:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                        ),
+                        border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
                       ),
                       padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width * .6 * .25,
+                      width: tableWidth * .25,
                       alignment: Alignment.center,
-                      child: Text("Tên"),
+                      child: Text(
+                        "Tên",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        border: Border(
-                          right:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                          bottom:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                        ),
-                        color: Colors.white,
+                        border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
                       ),
                       padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width * .6 * .3,
+                      width: tableWidth * .3,
                       alignment: Alignment.center,
-                      child: Text("Email"),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          right:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                          bottom:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                        ),
+                      child: Text(
+                        "Email",
+                        style: TextStyle(fontSize: 20),
                       ),
-                      width: MediaQuery.of(context).size.width * .6 * .15,
-                      alignment: Alignment.center,
-                      child: Text("Vai trò"),
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        border: Border(
-                          right:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                          bottom:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                        ),
+                        border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
                       ),
                       padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width * .6 * .15,
+                      width: tableWidth * .2,
                       alignment: Alignment.center,
-                      child: Text("Trạng thái"),
+                      child: Text(
+                        "Vai trò",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        border: Border(
-                          right:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                          bottom:
-                              BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                        ),
+                        border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
                       ),
-                      width: MediaQuery.of(context).size.width * .6 * .1 - 1,
+                      padding: EdgeInsets.all(10),
+                      width: tableWidth * .1,
                       alignment: Alignment.center,
-                      child: Text("Hành động"),
+                      child: Text(
+                        "Trạng thái",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
+                      ),
+                      padding: EdgeInsets.all(10),
+                      width: tableWidth * .1 - 0.5,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Hành động",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     )
                   ],
                 ),
-                Container(
-                  constraints: BoxConstraints(
-                    maxHeight: double.infinity,
-                  ),
+              ),
+              Container(
+                constraints: BoxConstraints(
+                  maxHeight: double.infinity,
+                ),
+                decoration: BoxDecoration(
                   color: Colors.white,
-                  height: 800,
-                  child: ListView(
-                    children: _listUses,
-                  ),
-                )
-              ],
-            ),
-          )
-        : LoadingAnimationScreen();
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
+                height: 800,
+                child: ListView(
+                  children: _listUses,
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    } else {
+      return LoadingAnimationScreen();
+    }
   }
 }

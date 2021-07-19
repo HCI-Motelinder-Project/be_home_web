@@ -31,10 +31,11 @@ Future<FacilityModel> createFacility(FacilityModel model) async {
 Future<List<FacilityModel>> loadFacilities() async {
   try {
     final response = await new Dio().get('$API_URL/facilities');
+    Map<String, dynamic> mapResponse = response.data;
+    List<dynamic> facilitiesData = mapResponse['facilities'];
     if (response.statusCode == 200) {
-      List<dynamic> facilities = response.data;
-      if (!CollectionUtils.isEmpty(facilities)) {
-        List<FacilityModel> result = facilities
+      if (!CollectionUtils.isEmpty(facilitiesData)) {
+        List<FacilityModel> result = facilitiesData
             .map((json) => FacilityModel.fromResponseJson(json))
             .toList();
         return result;
@@ -70,6 +71,25 @@ Future<FacilityModel> updateFacility(FacilityModel model) async {
   } else {
     throw Exception(
         'Failed to update facility from API:  ${response.toString()}');
+  }
+}
+
+Future<int> getAllFacilityCount() async {
+  try {
+    final response = await new Dio().get('$API_URL/facilities/count');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> mapResponse = response.data;
+      int count = mapResponse["count"];
+      if (count >= 0) {
+        return count;
+      }
+      return null;
+    } else {
+      throw Exception(
+          'Failed to load rent items from API:  ${response.toString()}');
+    }
+  } on DioError catch (e) {
+    print(e);
   }
 }
 

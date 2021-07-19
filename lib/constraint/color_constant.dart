@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 const APP_PRIMARY_COLOR = Color(0xff10c7b9);
 const APP_PRIMARY_COLOR_LIGHT = Color(0xff64fbeb);
 const APP_PRIMARY_COLOR_DARK = Color(0xff009689);
@@ -13,7 +15,11 @@ const APP_TEXT_COLOR_CYAN = Color(0xffe0f2f1);
 const APP_TEXT_COLOR_BLACK = Color(0xff000000);
 const APP_NOTE_COLOR = Color(0xFFD50000);
 const APP_CONFIRM_COLOR = Color(0xFF0F69AF);
-const APP_BUTTON_COLOAppR = Color(0xffffffff);
+const APP_BUTTON_TEXT_COLOR = Color(0xffffffff);
+const APP_ERROR_COLOR = APP_NOTE_COLOR;
+const APP_INFO_COLOR = APP_CONFIRM_COLOR;
+const APP_DANGER_COLOR = APP_NOTE_COLOR;
+const APP_SUCCESS_COLOR = Colors.green;
 
 // const APP_SECONDARY_COLOR = Color(0xfffdd835);
 // const APP_SECONDARY_COLOR_LIGHT = Color(0xffffff6b);

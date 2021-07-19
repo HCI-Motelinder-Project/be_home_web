@@ -1,7 +1,7 @@
 import 'package:behome/constraint/color_constant.dart';
 import 'package:behome/models/rent_item_model.dart';
 import 'package:behome/presenters/rent_item_presenter.dart';
-import 'package:behome/widgets/admin/rententity_facility_service_widget.dart';
+import 'package:behome/widgets/admin/facility_service_icon.dart';
 import 'package:flutter/material.dart';
 import "package:charcode/charcode.dart";
 
@@ -9,14 +9,14 @@ class PendingPostWidget extends StatefulWidget {
   final RentItemModel model;
   final Function function;
 
-  const PendingPostWidget({Key key, this.model, this.function}) : super(key: key);
+  const PendingPostWidget({Key key, this.model, this.function})
+      : super(key: key);
 
   @override
   _PendingPostWidgetState createState() => _PendingPostWidgetState();
 }
 
 class _PendingPostWidgetState extends State<PendingPostWidget> {
-
   List<Widget> listFacilities;
   List<Widget> listServices;
 
@@ -25,22 +25,26 @@ class _PendingPostWidgetState extends State<PendingPostWidget> {
     super.initState();
     listFacilities = widget.model.facilities
         .map((e) => FacilityServiceIcon(
-      iconData: e,
-    ))
+              iconData: e,
+            ))
         .toList();
     listServices = widget.model.services
         .map((e) => FacilityServiceIcon(
-      iconData: e,
-    ))
+              iconData: e,
+            ))
         .toList();
     ;
   }
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width * .9;
+
     return Container(
       constraints: BoxConstraints(
         maxWidth: double.infinity,
       ),
+      width: width,
       height: 300,
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.only(bottom: 10),
@@ -63,21 +67,22 @@ class _PendingPostWidgetState extends State<PendingPostWidget> {
         children: [
           Container(
             height: 300,
-            width: 300,
+            width: width * .2,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               image: DecorationImage(
-                  image: NetworkImage(widget.model.imageCover), fit: BoxFit.cover),
+                  image: NetworkImage(widget.model.imageCover),
+                  fit: BoxFit.cover),
             ),
           ),
           SizedBox(
-            width: 5,
+            width: 10,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
+                width: width - 451,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,7 +105,7 @@ class _PendingPostWidgetState extends State<PendingPostWidget> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
+                width:  width - 451,
                 height: 200,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -240,7 +245,7 @@ class _PendingPostWidgetState extends State<PendingPostWidget> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
+                width:  width - 451,
                 height: 39,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
