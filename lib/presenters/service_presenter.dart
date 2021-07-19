@@ -32,9 +32,10 @@ Future<List<ServiceModel>> loadServices() async {
   try {
     final response = await new Dio().get('$API_URL/services');
     if (response.statusCode == 200) {
-      List<dynamic> facilities = response.data;
-      if (!CollectionUtils.isEmpty(facilities)) {
-        List<ServiceModel> result = facilities
+      Map<String, dynamic> mapResponse = response.data;
+      List<dynamic> servicesData = mapResponse['services'];
+      if (!CollectionUtils.isEmpty(servicesData)) {
+        List<ServiceModel> result = servicesData
             .map((json) => ServiceModel.fromResponseJson(json))
             .toList();
         return result;
@@ -70,5 +71,24 @@ Future<ServiceModel> updateService(ServiceModel model) async {
   } else {
     throw Exception(
         'Failed to update facility from API:  ${response.toString()}');
+  }
+}
+
+Future<int> getAllServiceCount() async {
+  try {
+    final response = await new Dio().get('$API_URL/services/count');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> mapResponse = response.data;
+      int count = mapResponse["count"];
+      if (count >= 0) {
+        return count;
+      }
+      return null;
+    } else {
+      throw Exception(
+          'Failed to load rent items from API:  ${response.toString()}');
+    }
+  } on DioError catch (e) {
+    print(e);
   }
 }

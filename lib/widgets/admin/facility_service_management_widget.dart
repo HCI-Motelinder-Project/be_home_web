@@ -52,7 +52,7 @@ class _FacilityServiceManagementViewState
     });
   }
 
-  void loadAll(){
+  void loadAll() {
     loadAllFacilities();
     loadAllServices();
   }
@@ -65,99 +65,119 @@ class _FacilityServiceManagementViewState
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width * .9;
+    double height = MediaQuery.of(context).size.height;
     return _isLoadFacilities && _isLoadServices
         ? Container(
-            width: MediaQuery.of(context).size.width * .6,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+            width: width,
+            height:height,
+            color: Colors.white,
+            padding: EdgeInsets.all(20),
+            child: Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: APP_PRIMARY_COLOR.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 20,
+                    offset: Offset(0, 0), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                        bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Danh sách cơ sở vật chất hiện có",
+                            style: TextStyle(fontSize: 20)),
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.green,
+                            ),
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return CreateFacilityModal();
+                                },
+                              ).then(
+                                (value) {
+                                  loadAll();
+                                },
+                              );
+                            },
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Danh sách cơ sở vật chất hiện có",
-                          style: TextStyle(fontSize: 20)),
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.green,
-                          ),
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return CreateFacilityModal();
-                              },
-                            ).then(
-                              (value) {
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Wrap(
+                      children: _listFacilities,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                        bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Danh sách dịch vụ hiện có",
+                            style: TextStyle(fontSize: 20)),
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.green,
+                            ),
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return CreateServiceModal();
+                                },
+                              ).then((value) {
                                 loadAll();
-                              },
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Wrap(
-                    children: _listFacilities,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+                              });
+                            },
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Danh sách dịch vụ hiện có",
-                          style: TextStyle(fontSize: 20)),
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.green,
-                          ),
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return CreateServiceModal();
-                              },
-                            ).then((value) {
-                              loadAll();
-                            });
-                          },
-                        ),
-                      )
-                    ],
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Wrap(
+                      children: _listServices,
+                    ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Wrap(
-                    children: _listServices,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           )
         : LoadingAnimationScreen();

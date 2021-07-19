@@ -1,10 +1,9 @@
 import 'package:behome/models/user_model.dart';
 
-class UserResponse {
+class UserResponseModel {
   int statusCode;
   UserModel user;
-
-  UserResponse({
+  UserResponseModel({
     this.statusCode,
     this.user,
   });

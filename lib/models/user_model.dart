@@ -47,6 +47,7 @@ class UserModel {
         roleId: json['account']['roleId'],
         role: getRoleFromJsonCode(json['account']['roleName']));
   }
+
   factory UserModel.fromAccountsResponseJson(Map<String, dynamic> json) {
     return UserModel(
         id: json['userId'],

@@ -156,12 +156,31 @@ Future<RentItemModel> updateRentEntity(RentItemModel model) async {
 
   final response = await new Dio().put(url,
       options:
-      Options(headers: {HttpHeaders.contentTypeHeader: 'application/json'}),
+          Options(headers: {HttpHeaders.contentTypeHeader: 'application/json'}),
       data: jsonEncode(request));
   if (response.statusCode == 200) {
     print("Update successfully");
   } else {
     throw Exception(
         'Failed to update facility from API:  ${response.toString()}');
+  }
+}
+
+Future<int> getAvailableRentEntityCount() async {
+  try {
+    final response = await new Dio().get('$API_URL/rent/count');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> mapResponse = response.data;
+      int count = mapResponse["rentEntityCount"];
+      if (count >= 0) {
+        return count;
+      }
+      return null;
+    } else {
+      throw Exception(
+          'Failed to load rent items from API:  ${response.toString()}');
+    }
+  } on DioError catch (e) {
+    print(e);
   }
 }

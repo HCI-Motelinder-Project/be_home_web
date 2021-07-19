@@ -5,8 +5,10 @@ import 'dart:io';
 import 'package:behome/config/config.dart';
 import 'package:behome/models/rent_item_model.dart';
 import 'package:behome/models/user_model.dart';
+import 'package:behome/models/user_response_model.dart';
 import 'package:behome/utils/app_utils.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
 String getRoleId(Role role) {
@@ -44,15 +46,38 @@ var users = [
   }
 ];
 
-Future<UserModel> checkLogin(String email, String password) async {
-  final userData = await users.firstWhere(
-      (user) => user['email'] == email && user['password'] == password,
-      orElse: () => null);
-  UserModel result = null;
-  if (userData != null) {
-    result = UserModel.fromJson(userData);
+Future<UserResponseModel> checkLogin(
+    String accessToken, String googleId) async {
+  var request = {"accessToken": accessToken, "googleId": googleId};
+  var url = '$API_URL/user/login';
+  final response = await new Dio().post(url,
+      options:
+      Options(headers: {HttpHeaders.contentTypeHeader: 'application/json'}),
+      data: jsonEncode(request));
+  if (response == null) {
+    return null;
   }
-  return result;
+  if (response.statusCode == 200) {
+    Map<String, dynamic> map = Map<String, dynamic>.from(response.data);
+    UserResponseModel user = UserResponseModel(
+      statusCode: response.statusCode,
+      user: UserModel.fromJson(map),
+    );
+    return user;
+  } else if (response.statusCode == 201) {
+    User ggUser = FirebaseAuth.instance.currentUser;
+    UserResponseModel user = UserResponseModel(
+      statusCode: response.statusCode,
+      user: new UserModel(
+        email: ggUser.email,
+        name: ggUser.displayName,
+        image: ggUser.photoURL,
+      ),
+    );
+    return user;
+  } else {
+    return null;
+  }
 }
 
 Future<UserModel> loginByGoogle() async {
@@ -125,5 +150,23 @@ Future<UserModel> update(UserModel model) async {
   } else {
     throw Exception(
         'Failed to update facility from API:  ${response.toString()}');
+  }
+}
+
+Future<int> getAllUserCount() async {
+  try {
+    final response = await new Dio().get('$API_URL/user/count');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> mapResponse = response.data;
+      int count = mapResponse['userCount'];
+      if (count >= 0) {
+        return count;
+      }
+      return null;
+    } else {
+      throw Exception('Failed to load users from API:  ${response.toString()}');
+    }
+  } on DioError catch (e) {
+    print(e);
   }
 }

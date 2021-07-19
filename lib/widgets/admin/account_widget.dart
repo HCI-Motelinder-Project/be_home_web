@@ -46,59 +46,59 @@ class _AccountWidgetState extends State<AccountWidget> {
   Widget build(BuildContext context) {
     String roleSelected = getRoleString(widget.model.role);
     String statusSelected = widget.model.status;
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.all(10),
-          width: MediaQuery.of(context).size.width * .6 * .05,
-          height: 50,
-          decoration: BoxDecoration(
-            border: Border(
-              right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-              bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-            ),
-          ),
-          alignment: Alignment.center,
-          child: Text(widget.index.toString()),
-        ),
-        Container(
-          height: 50,
-          padding: EdgeInsets.all(10),
-          width: MediaQuery.of(context).size.width * .6 * .25,
-          decoration: BoxDecoration(
-            border: Border(
-              right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-              bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-            ),
-          ),
-          alignment: Alignment.centerLeft,
-          child: Text(widget.model.name),
-        ),
-        Container(
-          height: 50,
-          padding: EdgeInsets.all(10),
-          width: MediaQuery.of(context).size.width * .6 * .3,
-          decoration: BoxDecoration(
-            border: Border(
-              right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-              bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-            ),
-          ),
-          alignment: Alignment.centerLeft,
-          child: Text(widget.model.email),
-        ),
-        Container(
-            height: 50,
-            padding: EdgeInsets.all(10),
-            width: MediaQuery.of(context).size.width * .6 * .15,
+    double tableWidth = MediaQuery.of(context).size.width * .9 - 40 - 20;
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Container(
             decoration: BoxDecoration(
-              border: Border(
-                right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-                bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-              ),
+              border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
             ),
+            padding: EdgeInsets.all(10),
+            width: tableWidth * .05,
+            height: 50,
+            alignment: Alignment.center,
+            child: Text(
+              widget.index.toString(),
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
+            ),
+            padding: EdgeInsets.all(10),
+            width: tableWidth * .25,
+            height: 50,
+            alignment: Alignment.center,
+            child: Text(
+              widget.model.name,
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
+            ),
+            padding: EdgeInsets.all(10),
+            width: tableWidth * .3,
+            height: 50,
+            alignment: Alignment.center,
+            child: Text(
+              widget.model.email,
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
+            ),
+            padding: EdgeInsets.all(10),
+            width: tableWidth * .2,
+            height: 50,
             alignment: Alignment.center,
             child: DropdownButton<String>(
               underline: SizedBox(),
@@ -116,64 +116,144 @@ class _AccountWidgetState extends State<AccountWidget> {
                   child: Text(value),
                 );
               }).toList(),
-            )),
-        Container(
-          height: 50,
-          padding: EdgeInsets.all(10),
-          width: MediaQuery.of(context).size.width * .6 * .15,
-          decoration: BoxDecoration(
-            border: Border(
-              right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-              bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
             ),
           ),
-          alignment: Alignment.center,
-          child: DropdownButton<String>(
-            underline: SizedBox(),
-            value: statusSelected,
-            icon: const Icon(Icons.arrow_drop_down),
-            onChanged: (String newValue) {
-              widget.model.status = newValue;
-              setState(() {
-                statusSelected = widget.model.status;
-              });
-            },
-            items: listStatus.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          ),
-        ),
-        Container(
-          height: 50,
-          padding: EdgeInsets.all(10),
-          width: MediaQuery.of(context).size.width * .6 * .1 - 1,
-          decoration: BoxDecoration(
-            border: Border(
-              right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
-              bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
             ),
-          ),
-          alignment: Alignment.center,
-          child: MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () async {
-                await update(widget.model);
-                await widget.function();
+            padding: EdgeInsets.all(10),
+            width: tableWidth * .1,
+            height: 50,
+            alignment: Alignment.center,
+            child: DropdownButton<String>(
+              underline: SizedBox(),
+              value: statusSelected,
+              icon: const Icon(Icons.arrow_drop_down),
+              onChanged: (String newValue) {
+                widget.model.status = newValue;
+                setState(() {
+                  statusSelected = widget.model.status;
+                });
               },
-              child: Center(
-                child: Text(
-                  "Cập nhật",
-                  style: TextStyle(fontSize: 14, color: APP_PRIMARY_COLOR),
+              items: listStatus.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: .5, color: APP_PRIMARY_COLOR),
+            ),
+            padding: EdgeInsets.all(10),
+            height: 50,
+            width: tableWidth * .1 - 0.5,
+            alignment: Alignment.center,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () async {
+                  await update(widget.model);
+                  await widget.function();
+                },
+                child: Center(
+                  child: Text(
+                    "Cập nhật",
+                    style: TextStyle(fontSize: 20, color: APP_PRIMARY_COLOR),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ],
+          )
+        ],
+      ),
     );
+    //   Row(
+    //   mainAxisSize: MainAxisSize.max,
+    //   crossAxisAlignment: CrossAxisAlignment.center,
+    //   children: [
+    //     Container(
+    //       padding: EdgeInsets.all(10),
+    //       width: MediaQuery.of(context).size.width * .9 * .05,
+    //       height: 50,
+    //       decoration: BoxDecoration(
+    //         border: Border(
+    //           bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //           right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //         ),
+    //       ),
+    //       alignment: Alignment.center,
+    //       child: Text(),
+    //     ),
+    //     Container(
+    //       height: 50,
+    //       padding: EdgeInsets.all(10),
+    //       width: MediaQuery.of(context).size.width * .9 * .25,
+    //       decoration: BoxDecoration(
+    //         border: Border(
+    //           right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //           bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //         ),
+    //       ),
+    //       alignment: Alignment.centerLeft,
+    //       child: Text(),
+    //     ),
+    //     Container(
+    //       height: 50,
+    //       padding: EdgeInsets.all(10),
+    //       width: MediaQuery.of(context).size.width * .9 * .3,
+    //       decoration: BoxDecoration(
+    //         border: Border(
+    //           right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //           bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //         ),
+    //       ),
+    //       alignment: Alignment.centerLeft,
+    //       child: Text(),
+    //     ),
+    //     Container(
+    //         height: 50,
+    //         padding: EdgeInsets.all(10),
+    //         width: MediaQuery.of(context).size.width * .9 * .15,
+    //         decoration: BoxDecoration(
+    //           border: Border(
+    //             right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //             bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //           ),
+    //         ),
+    //         alignment: Alignment.center,
+    //
+    //         )),
+    //     Container(
+    //       height: 50,
+    //       padding: EdgeInsets.all(10),
+    //       width: MediaQuery.of(context).size.width * .9 * .15,
+    //       decoration: BoxDecoration(
+    //         border: Border(
+    //           right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //           bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //         ),
+    //       ),
+    //       alignment: Alignment.center,
+    //       child:
+    //     ),
+    //     Container(
+    //       height: 50,
+    //       padding: EdgeInsets.all(10),
+    //       width: MediaQuery.of(context).size.width * .9 * .1 - 1,
+    //       decoration: BoxDecoration(
+    //         border: Border(
+    //           right: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //           bottom: BorderSide(width: .5, color: APP_PRIMARY_COLOR),
+    //         ),
+    //       ),
+    //       alignment: Alignment.center,
+    //       child:
+    //     ),
+    //   ],
+    // );
   }
 }

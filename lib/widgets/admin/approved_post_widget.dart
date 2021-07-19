@@ -1,7 +1,7 @@
 import 'package:behome/constraint/color_constant.dart';
 import 'package:behome/models/rent_item_model.dart';
 import 'package:behome/presenters/rent_item_presenter.dart';
-import 'package:behome/widgets/admin/rententity_facility_service_widget.dart';
+import 'package:behome/widgets/admin/facility_service_icon.dart';
 import 'package:flutter/material.dart';
 import "package:charcode/charcode.dart";
 
@@ -38,10 +38,13 @@ class _ApprovedPostWidgetState extends State<ApprovedPostWidget> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width * .9;
+
     return Container(
       constraints: BoxConstraints(
         maxWidth: double.infinity,
       ),
+      width: width,
       height: 300,
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.only(bottom: 10),
@@ -63,7 +66,7 @@ class _ApprovedPostWidgetState extends State<ApprovedPostWidget> {
         children: [
           Container(
             height: 300,
-            width: 300,
+            width: width * .2,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               image: DecorationImage(
@@ -78,7 +81,7 @@ class _ApprovedPostWidgetState extends State<ApprovedPostWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
+                width: width - 451,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,7 +104,7 @@ class _ApprovedPostWidgetState extends State<ApprovedPostWidget> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
+                width: width - 451,
                 height: 200,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -241,7 +244,7 @@ class _ApprovedPostWidgetState extends State<ApprovedPostWidget> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * .6 - 350,
+                width: width - 451,
                 height: 39,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
