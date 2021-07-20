@@ -192,7 +192,7 @@ class _DashboardState extends State<Dashboard> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Icon(
-                                              Icons.account_box_outlined,
+                                              Icons.sticky_note_2_outlined,
                                               size: 100,
                                             ),
                                             Text(
@@ -238,7 +238,7 @@ class _DashboardState extends State<Dashboard> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Icon(
-                                              Icons.account_box_outlined,
+                                              Icons.settings_applications_outlined,
                                               size: 100,
                                             ),
                                             Text(
