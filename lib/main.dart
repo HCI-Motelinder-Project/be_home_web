@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
     userBloc = userBloc ?? Provider.of<UserBloc>(context);
     if(userBloc.user != null )print(userBloc.user.roleId);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
           primarySwatch: Colors.blue,
